@@ -1,0 +1,47 @@
+
+.button{
+    background-color: rgb(196, 24, 161);
+    border: 2px solid white;
+    color: white;
+    
+
+}
+
+.h2{
+    font-size: 1.5em;
+    font-style: caption;
+    color:black;
+}
+
+.h2:hover{
+    filter:contrast(10);
+    background-color:violet;
+
+}
+
+.image{
+    border-radius: 0%;
+    transition:all .5s ease-in-out;  
+}
+
+.image:hover{
+    border-radius: 80%;
+    transition:all .5s ease-in-out;
+    filter: none;
+    box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+    -webkit-box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+    -moz-box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+}
+
+.div{
+
+    padding: 20px;
+    width: 15%;
+    height: 520px;
+    background-color: #f3eeee; 
+    background: linear-gradient(rgb(239, 21, 203), 10%, rgb(232, 204, 209));
+    box-shadow: 19px 23px 5px 2px rgba(242, 236, 236, 0.36);
+    -webkit-box-shadow: 19px 23px 5px 2px rgba(236, 236, 228, 0.36);
+    -moz-box-shadow: 19px 23px 5px 2px rgba(248, 244, 244, 0.36);
+}
+
