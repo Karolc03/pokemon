@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { Pokemon, Type } = require("../db");
 
-const getInformationApi = async (limit = 12, offset = 0) => {
+const getInformationApi = async (limit = 100, offset = 0) => {
   const { data: dataPokemons } = await axios.get(
     "https://pokeapi.co/api/v2/pokemon",
     {
@@ -38,8 +38,21 @@ const getInformationApi = async (limit = 12, offset = 0) => {
 };
 
 const getInformationByName = async (name) => {
-  return axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-};
+    return axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .then(({data:p}) => ({
+        id: p.id,
+        name: p.name,
+        img: p.sprites.other.dream_world.front_default,
+        type: p.types.map((el) => el.type.name),
+        health: p.stats[0].base_stat,
+        attack: p.stats[1].base_stat,
+        defense: p.stats[2].base_stat,
+        speed: p.stats[5].base_stat,
+        height: p.height,
+        weight: p.weight,
+      }))
+      .catch(() =>{})
+ };
 
 const getInformationDB = async () => {
   return await Pokemon.findAll({
@@ -50,15 +63,19 @@ const getInformationDB = async () => {
         attributes: [],
       },
     },
-  });
+  })
 };
 
 const getAllInformation = async (req, res, next) => {
   try {
     const { limit, offset, name } = req.query;
+    console.log(name);
     if (name) {
-      const { data: pkmon } = await getInformationByName(name);
-      return res.json(pkmon);
+      const pkmonsByName = []
+      const pkmon = await getInformationByName(name);
+      pkmonsByName.push(pkmon)
+      return res.json(pkmonsByName);
+
     }
     const infoApi = await getInformationApi(limit, offset);
     const infoDB = await getInformationDB();
@@ -72,8 +89,12 @@ const getAllInformation = async (req, res, next) => {
 const getPokemonById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    res.json({ id });
-  } catch (error) {}
+    console.log(id)
+    const {data: pk}= await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    res.json(pk)
+  } catch (error) {
+    next(error);
+  }
 };
 
 const createPokemon = async (req, res, next) => {
@@ -81,7 +102,7 @@ const createPokemon = async (req, res, next) => {
     const { name, img, health, attack, defense, speed, height, weight, type } =
       req.body;
     if (name && img && health && attack && defense) {
-      const pokemon = Pokemon.create({
+      const pokemon = await Pokemon.create({
         name,
         img,
         health,
@@ -92,12 +113,12 @@ const createPokemon = async (req, res, next) => {
         weight,
       });
 
-      // let typeByDB = await Type.findAll({
-      //   where: {
-      //     name: type,
-      //   },
-      // });
-      // await pokemon.addType(typeByDB);
+      let typeByDB = await Type.findAll({
+        where: {
+          name: type,
+        },
+      });
+      await pokemon.addType(typeByDB);
       return res.status(200).send("El pokemon ha sido creado exitosamente");
     }
     res.status(400).send("Faltan datos obligatorios");
@@ -110,5 +131,5 @@ module.exports = {
   getAllInformation,
   getPokemonById,
   createPokemon,
-  getInformationDB
+  getInformationDB,
 };

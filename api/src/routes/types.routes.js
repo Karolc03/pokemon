@@ -3,7 +3,7 @@ const { Router} = require("express");
 const typesRouter = Router();
 
 
-typesRouter.get("/types", getType);
+typesRouter.get("/", getType);
 
 
 
