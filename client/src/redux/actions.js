@@ -64,3 +64,9 @@ export const filterByName = (order) => {
     type: FILTER_BY_NAME,
     payload: order
   }}
+
+  export const filterByAttack= (order) => {
+    return {
+      type: FILTER_BY_ATTACK,
+      payload: order
+    }}
