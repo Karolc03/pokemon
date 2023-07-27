@@ -7,7 +7,7 @@ const Landing = () => {
   return (
     <>
     <body className={styles.body}>
-      <h3>BIENVENIDO</h3>
+      <h1>BIENVENIDO</h1>
       <button>
       <Link to="/home">Home</Link></button>
       </body>

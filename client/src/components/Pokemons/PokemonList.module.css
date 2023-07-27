@@ -1,0 +1,15 @@
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Asegura que las tarjetas se envuelvan a una nueva línea si no caben en el ancho del contenedor */
+  }
+  
+  .card {
+    flex: 0 0 200px; /* Flex-grow, flex-shrink y flex-basis (ancho inicial) */
+    height: 150px;
+    margin: 10px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+  }
