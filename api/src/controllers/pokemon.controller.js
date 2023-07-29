@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { Pokemon, Type } = require("../db");
 
-const getInformationApi = async (limit = 100, offset = 0) => {
+const getInformationApi = async (limit = 40, offset = 0) => {
   const { data: dataPokemons } = await axios.get(
     "https://pokeapi.co/api/v2/pokemon",
     {
@@ -43,7 +43,7 @@ const getInformationByName = async (name) => {
         id: p.id,
         name: p.name,
         img: p.sprites.other.dream_world.front_default,
-        type: p.types.map((el) => el.type.name),
+        types: p.types.map((el) => el.type.name),
         health: p.stats[0].base_stat,
         attack: p.stats[1].base_stat,
         defense: p.stats[2].base_stat,
