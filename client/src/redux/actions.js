@@ -35,7 +35,7 @@ export const getPokemonByName = (name) => {
 export const postPokemon = (pokemon) => {
   return function (dispatch) {
     axios
-      .get(`http://localhost:3001/pokemons`, pokemon)
+      .post(`http://localhost:3001/pokemons`, pokemon)
       .then((response) => response.data)
       .then((data) => dispatch({ type: POST_POKEMON, payload: data }));
   };

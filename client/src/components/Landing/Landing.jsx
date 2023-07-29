@@ -2,16 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from './Landing.module.css';
 
-
 const Landing = () => {
   return (
-    <>
-    <body className={styles.body}>
-      <h1>BIENVENIDO</h1>
-      <button>
-      <Link to="/home">Home</Link></button>
-      </body>
-    </>
+    <div className={styles.bodyContainer}>
+      <div className={styles.content}>
+        <h1 className={styles.heading}>BIENVENIDO</h1>
+        <h1 className={styles.homeLink}>
+          <Link to="/home" className={styles.buttonLink}>Home</Link>
+        </h1>
+      </div>
+    </div>
   );
 };
 

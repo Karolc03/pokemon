@@ -1,0 +1,25 @@
+.search.div {
+    display: flex;
+    align-items: center;
+  }
+  
+  .inputbuscar {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 5px solid #ccc;
+    outline: none;
+    width: 100%; /* Ancho del campo de búsqueda */
+    max-width: 200px; 
+}
+  
+  .buscar {
+    padding: 8px 16px;
+    font-size: 16px;
+    background: #007bff;
+    color: #fff;
+    border: 5px solid #ccc;
+    cursor: pointer;
+    width: 100px; /* Ancho del botón "Buscar" */
+    
+  }

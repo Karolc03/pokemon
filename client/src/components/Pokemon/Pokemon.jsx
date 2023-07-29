@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Pokemon.module.css";
 
-const Pokemon = ({ name, img, type, id }) => {
-  console.log(type)
-  const ntype = type?.join(", ")
+const Pokemon = ({ name, img, types, id }) => {
+  console.log(types)
+  const ntype = types && types.map(type => typeof type === "string" ? type : type.name).join(", ")
   
   return (
     <div className={styles.card} >

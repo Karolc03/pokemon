@@ -1,78 +1,46 @@
-// import React, { useEffect, useState } from "react";
-// import PokemonDetail from "./PokemonDetail"; 
-
-// const PokemonList = (props) => {
-//   const [pokemonDetail, setPokemonDetail] = useState(null);
-//   const pokemonId = props.match.params.id;
-
-//   useEffect(() => {
-//     const fetchPokemonDetail = async () => {
-//       try {
-        
-//         const response = await fetch(`http://localhost:3001/pokemons/${pokemonId}`);
-//         const data = await response.json();
-//         setPokemonDetail(data);
-//       } catch (error) {
-//         console.error("Error fetching Pokémon details:", error);
-//       }
-//     };
-
-//     fetchPokemonDetail();
-//   }, [pokemonId]);
-
-//   return (
-//     <div>
-//       {pokemonDetail ? (
-//         <PokemonDetail 
-//           match={{ params: { id: pokemonId } }}
-//           name={pokemonDetail.name}
-//           img={pokemonDetail.img}
-//           health={pokemonDetail.health}
-//           attack={pokemonDetail.attack}
-//           defense={pokemonDetail.defense}
-//           speed={pokemonDetail.speed}
-//           height={pokemonDetail.height}
-//           weight={pokemonDetail.weight}
-//           type={pokemonDetail.type}
-//         />
-//       ) : (
-//         <div>Loading...</div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PokemonList;
-
-
-
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPokemons } from "../../redux/actions";
 import Pokemon from "../Pokemon/Pokemon";
-import styles from './PokemonList.module.css'; 
+import styles from "./PokemonList.module.css";
+import Paginacion from "../Paginacion/Paginacion";
 
 const PokemonList = () => {
   const pokemons = useSelector((state) => state.pokemons);
   const dispatch = useDispatch();
+  const [maximo, setMaximo] = useState(0);
+  const [pagina, setPagina] = useState(1);
+  const porPagina = 12;
 
   useEffect(() => {
     dispatch(getPokemons());
   }, [dispatch]);
-console.log(pokemons)
+
+  useEffect(() => {
+    setMaximo(Math.ceil(pokemons.length / porPagina));
+    setPagina(1);
+  }, [pokemons]);
+
+  console.log(pokemons);
   return (
-    <div className={styles.contenedor}>
-      {!pokemons.length ? <></> : pokemons.map((pokemon) => (
-        <Pokemon
-          id={pokemon.id}
-          key={pokemon.name} 
-          name={pokemon.name}
-          img={pokemon.img}
-          type={pokemon.type}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.contenedor}>
+        {!pokemons.length ? (
+          <></>
+        ) : (
+          pokemons.slice((pagina-1)*porPagina,(pagina-1)*porPagina+porPagina).map((pokemon) => (
+            <Pokemon
+              id={pokemon.id}
+              key={pokemon.name}
+              name={pokemon.name}
+              img={pokemon.img}
+              types={pokemon.types}
+            />
+          ))
+        )}
+      </div>
+      <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
+    </>
   );
 };
 

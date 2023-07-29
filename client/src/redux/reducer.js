@@ -15,11 +15,16 @@ const initialState = {
   pokemonApi: [],
   pokemonDB: [],
   detailPokemons: {},
-  Attack: [],
+  types: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    // case POST_POKEMON:
+    // return {
+    //   ...state,
+    //   pokemons: [...state.pokemons, action.payload],
+    // }
     case GET_POKEMONS:
       return {
         ...state,
@@ -57,7 +62,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_TYPES:
       return {
         ...state,
-        pokemonFilters: action.payload,
+        types: action.payload,
       };
     case FILTER_BY_NAME:
       const ascendingOrder = (a, b) =>
@@ -102,11 +107,13 @@ const rootReducer = (state = initialState, action) => {
               pokemon.type.includes(action.payload)
             ),
           };
+
         }
 
     default:
       return { ...state };
   }
+
 };
 
 export default rootReducer;

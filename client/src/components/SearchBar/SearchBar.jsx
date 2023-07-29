@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getPokemonByName } from '../../redux/actions';
+import styles from './SearchBar.module.css';
 
 
 export default function SearchBar() {
@@ -11,7 +12,8 @@ export default function SearchBar() {
   function handleInputChange(e) {
     setName(e.target.value);
   }
-  // se ejecuta cuando el usuario hace clic en el botón "BUSCAR" para buscar un Pokémon
+
+ // se ejecuta cuando el usuario hace clic en el botón "BUSCAR" para buscar un Pokémon
   function handleSubmit(e) {
     e.preventDefault(); //evitamos que el formulario se envíe automáticamente
     if (!name) {
@@ -20,16 +22,23 @@ export default function SearchBar() {
     }
     dispatch(getPokemonByName(name)); //usamos el hook useDispatch para despachar la acción getPokemonByName(name) a la tienda Redux. Esto enviará una solicitud para obtener información del Pokémon cuyo nombre fue ingresado.
   }
-
   return (
-    <div className='search-div'>
-      <input className='input-buscar' type='text' placeholder='search...' onChange={handleInputChange} value={name}/>
-      <button className='buscar' type='submit' onClick={handleSubmit}>BUSCAR</button>
+    <div className={styles.search.div}>
+      <input
+        type='text'
+        placeholder='Search...'
+        className={styles.inputbuscar}
+        onChange={handleInputChange}
+        value={name}
+      />
+      <button className={styles.buscar} onClick={handleSubmit}>
+        Search
+      </button>
       <button>Filtrar API </button>
-      <button>Filtrar DB </button>
-      <button>Ordenar A - Z </button>
-      <button>Ordenar Z - A </button>
-      <button>Ordenar Por ataque </button> 
+       <button>Filtrar DB </button>
+       <button>Ordenar A - Z </button>
+       <button>Ordenar Z - A </button>
+       <button>Ordenar Por ataque </button> 
     </div>
   );
 }

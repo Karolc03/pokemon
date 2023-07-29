@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postPokemon, getTypes } from "../../redux/actions";
 
 const Form = () => {
+  const types = useSelector((state) => state.types);
   const dispatch = useDispatch();
+
   const [value, setValue] = useState({
     name: "",
     img: "",
@@ -13,23 +15,44 @@ const Form = () => {
     speed: "", //(si tiene).
     height: "", //(si tiene).
     weight: "", //(si tiene).
-    type: [], //multiselect
+    types: [], //multiselect
   });
-  const { name, img, health, attack, speed, height, weight, type } = value;
   const [errors, setErrors] = useState({
     name: "",
     img: "",
     health: "",
     attack: "",
-    speed: "",
-    height: "",
-    weight: "",
-    type: [],
   });
+
+  const handleTypes = (e, tp) => {
+    e.preventDefault();
+    console.log(value.types);
+    let newTypes = [];
+    const exist = value.types?.find((t) => t.id === tp.id);
+    if (exist) {
+      newTypes = value.types.filter((t) => t.id !== tp.id);
+    } else {
+      newTypes = [...value.types, tp];
+    }
+
+    setValue({
+      ...value,
+      types: newTypes,
+    });
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postPokemon(value));
+    if (errors.name || errors.img || errors.health || errors.attack) return;
+    dispatch(
+      postPokemon({
+        name: value.name,
+        img: value.img,
+        health: value.health,
+        attack: value.attack,
+        types: value.types.map((t) => ({ name: t.name, id: t.id })),
+      })
+    );
 
     setValue({
       //resetea el estado input a su estado original
@@ -41,23 +64,23 @@ const Form = () => {
       speed: 0,
       height: 0,
       weight: 0,
-      type: [],
+      types: [],
     });
   }
 
-   useEffect(() => {
+  useEffect(() => {
     dispatch(getTypes()); //al montarse el comp me trae todos los tipos
-  }, [dispatch]);
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
-    const { name, value } = e.target;
+    const { name, value: fieldValue } = e.target;
     setValue({
       ...value,
-      [name]: value,
+      [name]: fieldValue,
     });
+    handleError(e);
   };
-   
 
   function handleError(e) {
     switch (e.target.name) {
@@ -143,78 +166,6 @@ const Form = () => {
           setErrors({
             ...errors,
             attack: "",
-          });
-        }
-        break;
-      case "speed":
-        const speedValue = parseInt(value.speed, 10);
-        if (isNaN(speedValue)) {
-          setErrors({
-            ...errors,
-            speed: "Ingresa solo números enteros positivos",
-          });
-        } else if (speedValue > 200) {
-          setErrors({
-            ...errors,
-            speed: "El valor de speed no puede ser superior a 200",
-          });
-        } else if (speedValue === 0) {
-          setErrors({
-            ...errors,
-            speed: "El valor de speed no puede ser 0",
-          });
-        } else {
-          setErrors({
-            ...errors,
-            speed: "",
-          });
-        }
-        break;
-      case "height":
-        const heightValue = parseInt(value.height, 10);
-        if (isNaN(heightValue)) {
-          setErrors({
-            ...errors,
-            height: "Ingresa solo números enteros positivos",
-          });
-        } else if (heightValue > 200) {
-          setErrors({
-            ...errors,
-            height: "El valor de height no puede ser superior a 200",
-          });
-        } else if (heightValue === 0) {
-          setErrors({
-            ...errors,
-            height: "El valor de height no puede ser 0",
-          });
-        } else {
-          setErrors({
-            ...errors,
-            height: "",
-          });
-        }
-        break;
-      case "weight":
-        const weightValue = parseInt(value.weight, 10);
-        if (isNaN(weightValue)) {
-          setErrors({
-            ...errors,
-            weight: "Ingresa solo números enteros positivos",
-          });
-        } else if (weightValue > 200) {
-          setErrors({
-            ...errors,
-            weight: "El valor de attack no puede ser superior a 200",
-          });
-        } else if (weightValue === 0) {
-          setErrors({
-            ...errors,
-            weight: "El valor de weight no puede ser 0",
-          });
-        } else {
-          setErrors({
-            ...errors,
-            weight: "",
           });
         }
         break;
@@ -326,10 +277,28 @@ const Form = () => {
           {errors.weight && <p>{errors.weight}</p>}
         </div>
 
-                       
-            
-
-
+        {types.map((t) => (
+          <button
+            onClick={(e) => handleTypes(e, t)}
+            id={t.name + t.id}
+            key={t.name + t.id}
+          >
+            {t.name}
+          </button>
+        ))}
+        <div>
+          {value.types && value.types.length
+            ? value.types.map((t) => (
+                <button
+                  onClick={(e) => handleTypes(e, t)}
+                  id={t.name + t.id}
+                  key={t.name + t.id}
+                >
+                  {t.name} X
+                </button>
+              ))
+            : "Agrega tipos a tu pokemon"}
+        </div>
         <input type="submit" />
       </form>
     </>

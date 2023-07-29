@@ -1,8 +1,50 @@
-/* body {
-   background-image:url("https://fondosmil.com/fondo/14707.png") ;
+
+ /* Landing.module.css */
+
+.bodyContainer {
+   background-image: url("https://wallpaperaccess.com/full/2786200.jpg");
    background-size: cover;
    background-repeat: no-repeat;
-  } 
-   */
+   display: flex;
+   justify-content: flex-end; /* Alinea el contenido en el lado derecho */
+   align-items: center;
+   min-height: 100vh;
+ }
+ 
+ .content {
+   position: relative; /* Hace que los elementos dentro de .content utilicen posicionamiento relativo */
+   text-align: center; /* Centra el contenido horizontalmente */
+ }
+ 
+ .heading {
+   font-size: 48px;
+   color: rgba(255, 255, 255, 1);
+   text-shadow: 0 0 10px rgb(212, 202, 212), 0 0 20px rgba(255, 255, 255, 1),
+     0 0 30px rgba(255, 255, 255, 1), 0 0 40px #0f010d, 0 0 70px #ff00de,
+     0 0 80px #1a0117, 0 0 100px #ff00de;
+ 
+   /* Posicionamiento absoluto para el texto "BIENVENIDO" */
+   position: absolute;
+   top:-250px; /* Ajusta la posición vertical */
+   right: 200px; /* Ajusta la posición horizontal */
+ }
+ 
+ .homeLink {
+   position: absolute;
+   top: -130px; /* Ajusta la posición vertical para el enlace "Home" */
+   right: 300px; /* Ajusta la posición horizontal */
+ }
+ 
+ .buttonLink {
+   text-decoration: none;
+   text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1),
+     0 0 30px rgba(255, 255, 255, 1), 0 0 40px #ff00de, 0 0 70px #ff00de,
+     0 0 80px #ff00de, 0 0 100px #ff00de;
+     background-color: rgb(232, 232, 230);
+     padding: 10px ;
+     box-shadow: 30px 06px rgb(209, 197, 206);;
+ }
 
-  
+
+
+
