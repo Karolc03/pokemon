@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { Pokemon, Type } = require("../db");
 
-const getInformationApi = async (limit = 40, offset = 0) => {
+const getInformationApi = async (limit = 100, offset = 0) => {
   const { data: dataPokemons } = await axios.get(
     "https://pokeapi.co/api/v2/pokemon",
     {
@@ -23,7 +23,7 @@ const getInformationApi = async (limit = 40, offset = 0) => {
         id: p.id,
         name: p.name,
         img: p.sprites.other.dream_world.front_default,
-        type: p.types.map((el) => el.type.name),
+        types: p.types.map((el) => el.type.name),
         health: p.stats[0].base_stat,
         attack: p.stats[1].base_stat,
         defense: p.stats[2].base_stat,
@@ -69,7 +69,7 @@ const getInformationDB = async () => {
 const getAllInformation = async (req, res, next) => {
   try {
     const { limit, offset, name } = req.query;
-    console.log(name);
+   
     if (name) {
       const pkmonsByName = []
       const pkmon = await getInformationByName(name);
@@ -89,7 +89,6 @@ const getAllInformation = async (req, res, next) => {
 const getPokemonById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    console.log(id)
     const {data: pk}= await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     res.json(pk)
   } catch (error) {

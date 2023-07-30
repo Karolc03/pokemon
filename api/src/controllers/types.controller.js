@@ -3,7 +3,7 @@ const { Type } = require("../db");
 
 const getType = async (req, res, next) => {
   try {
-    //LLENADO DE LOS TYPES
+    // LLENADO DE LOS TYPES
     // const apiUrlTypes = "https://pokeapi.co/api/v2/type";
     // const response = await axios.get(apiUrlTypes);
     // const types = response.data.results.map((el) => ({ name: el.name }));
