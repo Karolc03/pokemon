@@ -1,6 +1,3 @@
-
- /* Landing.module.css */
-
 .bodyContainer {
    background-image: url("https://wallpaperaccess.com/full/2786200.jpg");
    background-size: cover;
@@ -8,7 +5,7 @@
    display: flex;
    justify-content: flex-end; /* Alinea el contenido en el lado derecho */
    align-items: center;
-   min-height: 100vh;
+   min-height: 100vh; 
  }
  
  .content {
@@ -18,10 +15,10 @@
  
  .heading {
    font-size: 48px;
-   color: rgba(255, 255, 255, 1);
+   color: rgb(255, 170, 0);
    text-shadow: 0 0 10px rgb(212, 202, 212), 0 0 20px rgba(255, 255, 255, 1),
-     0 0 30px rgba(255, 255, 255, 1), 0 0 40px #0f010d, 0 0 70px #ff00de,
-     0 0 80px #1a0117, 0 0 100px #ff00de;
+     0 0 30px rgb(244, 239, 235), 0 0 40px #0f010d, 0 0 70px #ff00de,
+     0 0 80px #1a0117, 0 0 100px #ff9900;
  
    /* Posicionamiento absoluto para el texto "BIENVENIDO" */
    position: absolute;
@@ -31,18 +28,15 @@
  
  .homeLink {
    position: absolute;
-   top: -130px; /* Ajusta la posición vertical para el enlace "Home" */
+   top: -130px; /* Ajusta la posición vertical para "Home" */
    right: 300px; /* Ajusta la posición horizontal */
  }
  
  .buttonLink {
    text-decoration: none;
-   text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1),
-     0 0 30px rgba(255, 255, 255, 1), 0 0 40px #ff00de, 0 0 70px #ff00de,
-     0 0 80px #ff00de, 0 0 100px #ff00de;
-     background-color: rgb(232, 232, 230);
+     background-color: rgb(255, 251, 0);
      padding: 10px ;
-     box-shadow: 30px 06px rgb(209, 197, 206);;
+     box-shadow: 30px 06px rgb(255, 251, 0);;
  }
 
 

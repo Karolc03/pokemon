@@ -6,6 +6,7 @@ import {
   FILTER_BY_NAME,
   FILTER_BY_TYPE,
   FILTER_BY_ATTACK,
+  FILTER_BY_ORIGIN,
 } from "./actions";
 
 const initialState = {
@@ -29,7 +30,8 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemons: action.payload,
-        pokemonsAll: action.payload,
+        pokemonAll: action.payload,
+        pokemonFilters: action.payload,
         pokemonApi: Array.isArray(action.payload)
           ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1))
           : action.payload,
@@ -77,7 +79,7 @@ const rootReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        pokemonFilters: auxName,
+        pokemons: auxName,
       };
     case FILTER_BY_ATTACK:
       const ascendingOrderAttack = (a, b) => a.attack - b.attack;
@@ -92,28 +94,51 @@ const rootReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        pokemonFilters: auxAttack,
+        pokemons: auxAttack,
       };
-      case FILTER_BY_TYPE:
-        if (action.payload === "All Types") {
-          return {
-            ...state,
-            pokemonFilters: [...state.pokemons],
-          };
-        } else {
-          return {
-            ...state,
-            pokemonFilters: state.pokemons.filter((pokemon) =>
-              pokemon.type.includes(action.payload)
-            ),
-          };
-
-        }
+    case FILTER_BY_TYPE:
+      if (action.payload === "All Types") {
+        return {
+          ...state,
+          pokemonFilters: [...state.pokemonAll],
+          pokemons: [...state.pokemonAll],
+        };
+      } else {
+        return {
+          ...state,
+          pokemonFilters: [
+            ...state.pokemonAll.filter((p) => p.types.includes(action.payload)),
+          ],
+          pokemons: [
+            ...state.pokemonAll.filter((p) => p.types.includes(action.payload)),
+          ],
+        };
+      }
+    case FILTER_BY_ORIGIN:
+      console.log("origin", action.payload)
+      if (action.payload === "pokemonApi") {
+        return {
+          ...state,
+          pokemons: [...state.pokemonApi],
+          pokemonFilters: [...state.pokemonApi],
+        };
+      } else if (action.payload === "pokemonDB") {
+        return {
+          ...state,
+          pokemons: [...state.pokemonDB],
+          pokemonFilters: [...state.pokemonDB],
+        };
+      } else {
+        return {
+          ...state,
+          pokemons: [...state.pokemonAll],
+          pokemonFilters: [...state.pokemonAll],
+        };
+      }
 
     default:
       return { ...state };
   }
-
 };
 
 export default rootReducer;

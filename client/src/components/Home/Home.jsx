@@ -1,7 +1,7 @@
 import React from "react";
-import SearchBar from "../SearchBar/SearchBar";
 import PokemonList from "../Pokemons/PokemonList";
 import { useHistory } from "react-router-dom";
+import Filter from "../Filters/Filter";
 
 import styles from "./Home.module.css";
 
@@ -15,7 +15,7 @@ const Home = () => {
     <div className={styles.homeContainer}>
       <div className={styles.backgroundImage}></div>
       <div className={styles.content}>
-        <SearchBar />
+        <Filter/>
         <PokemonList />
         <button className={styles.buscar} onClick={handleButton}>
           Create Pokemon

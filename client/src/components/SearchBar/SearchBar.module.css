@@ -1,25 +1,23 @@
-.search.div {
-    display: flex;
-    align-items: center;
-  }
-  
-  .inputbuscar {
-    flex: 1;
-    padding: 8px;
-    font-size: 16px;
-    border: 5px solid #ccc;
-    outline: none;
-    width: 100%; /* Ancho del campo de búsqueda */
-    max-width: 200px; 
+.searchContainer {
+  display: flex; /* Muestra los elementos en la misma fila */
+  align-items: center;
 }
-  
-  .buscar {
-    padding: 8px 16px;
-    font-size: 16px;
-    background: #007bff;
-    color: #fff;
-    border: 5px solid #ccc;
-    cursor: pointer;
-    width: 100px; /* Ancho del botón "Buscar" */
-    
-  }
+
+.inputbuscar {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  padding: 8px;
+  font-size: 16px;
+  outline: none;
+  width: 100%; /* Ancho del campo de búsqueda */
+  max-width: 200px;
+}
+
+.buscar {
+  padding: 8px 16px;
+  font-size: 16px;
+  background: #474343;
+  color: #fff;
+  cursor: pointer;
+  width: 100px; /* Ancho del botón "Buscar" */
+  max-width: 200px;
+}

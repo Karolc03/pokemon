@@ -21,22 +21,27 @@ const PokemonList = () => {
     setPagina(1);
   }, [pokemons]);
 
-  console.log(pokemons);
+  if (typeof pokemons === "string") return <div className={styles.contenedor}> {pokemons}</div>;
   return (
     <>
       <div className={styles.contenedor}>
         {!pokemons.length ? (
           <></>
         ) : (
-          pokemons.slice((pagina-1)*porPagina,(pagina-1)*porPagina+porPagina).map((pokemon) => (
-            <Pokemon
-              id={pokemon.id}
-              key={pokemon.name}
-              name={pokemon.name}
-              img={pokemon.img}
-              types={pokemon.types}
-            />
-          ))
+          pokemons
+            .slice(
+              (pagina - 1) * porPagina,
+              (pagina - 1) * porPagina + porPagina
+            )
+            .map((pokemon) => (
+              <Pokemon
+                id={pokemon.id}
+                key={pokemon.name}
+                name={pokemon.name}
+                img={pokemon.img}
+                types={pokemon.types}
+              />
+            ))
         )}
       </div>
       <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />

@@ -26,7 +26,6 @@ const Form = () => {
 
   const handleTypes = (e, tp) => {
     e.preventDefault();
-    console.log(value.types);
     let newTypes = [];
     const exist = value.types?.find((t) => t.id === tp.id);
     if (exist) {
@@ -172,7 +171,6 @@ const Form = () => {
       default:
         break;
     }
-    console.log(errors);
   }
 
   return (

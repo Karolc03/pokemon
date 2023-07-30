@@ -7,8 +7,13 @@
     top: 0; 
     left: 0; 
     right: 0; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
   }
-  
+  .searchContainer {
+    margin-right: 500px; /* Establece el margen derecho para separar el botón de búsqueda de los elementos de la lista */
+  }
   .navbarlist {
     list-style: none;
     display: flex;

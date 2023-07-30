@@ -21,9 +21,13 @@ export default function SearchBar() {
       return;
     }
     dispatch(getPokemonByName(name)); //usamos el hook useDispatch para despachar la acción getPokemonByName(name) a la tienda Redux. Esto enviará una solicitud para obtener información del Pokémon cuyo nombre fue ingresado.
+    setName("");
+    
   }
   return (
-    <div className={styles.search.div}>
+    <form className={styles.searchContainer}
+    onSubmit={handleSubmit}
+    >
       <input
         type='text'
         placeholder='Search...'
@@ -31,14 +35,14 @@ export default function SearchBar() {
         onChange={handleInputChange}
         value={name}
       />
-      <button className={styles.buscar} onClick={handleSubmit}>
+      <button type="submit" className={styles.buscar} >
         Search
       </button>
-      <button>Filtrar API </button>
+      {/* <button>Filtrar API </button>
        <button>Filtrar DB </button>
        <button>Ordenar A - Z </button>
        <button>Ordenar Z - A </button>
-       <button>Ordenar Por ataque </button> 
-    </div>
+       <button>Ordenar Por ataque </button>  */}
+    </form>
   );
 }

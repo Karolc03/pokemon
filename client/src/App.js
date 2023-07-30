@@ -14,7 +14,6 @@ function App() {
       <Route exact path="/home"component={NavBar} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/form" component={Form} />
-      <Route exact path="/form"component={NavBar} />
       <Route exact path="/detail/:id" component={PokemonDetail} />
       <Route exact path="/detail/:id"component={NavBar} />
     </div>

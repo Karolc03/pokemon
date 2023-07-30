@@ -3,18 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getTypes,
   filterByType,
-  filterByOrder,
+  filterByName,
   filterByAttack,
+  getPokemonsByOrigin,
 } from "../../redux/actions";
 
 const Filter = () => {
-  const [filterType, setFilterType] = useState("All Types");
-  const [filterAttack, setFilterAttack] = useState("Score Upward");
-  const [filterOrder, setFilterOrder] = useState("Upward");
+  const [filterType, setFilterType] = useState("Filter by Types");
+  const [filterAttack, setFilterAttack] = useState("Filter by Attack");
+  const [filterOrder, setFilterOrder] = useState("Filter by Order");
+  const [filterOrigin, setFilterOrigin] = useState("Filter by Origin");
+  
 
   const dispatch = useDispatch();
-  const types = useSelector((state) => state.type);
-  
+  const types = useSelector((state) => state.types);
 
   useEffect(() => {
     dispatch(getTypes());
@@ -26,13 +28,21 @@ const Filter = () => {
   }
 
   function handleAttack(e) {
+    e.preventDefault()
     setFilterAttack(e.target.value);
     dispatch(filterByAttack(e.target.value)); // Usa la acción "filterByAttack" para actualizar el estado en el store
   }
 
   function handleOrder(e) {
+    e.preventDefault()
     setFilterOrder(e.target.value);
-    dispatch(filterByOrder(e.target.value)); // Usa la acción "filterByOrder" para actualizar el estado en el store
+    dispatch(filterByName(e.target.value)); // Usa la acción "filterByOrder" para actualizar el estado en el store
+  }
+
+  function handleOrigin(e) {
+    e.preventDefault()
+    setFilterOrigin(e.target.value);
+    dispatch(getPokemonsByOrigin(e.target.value)); 
   }
 
   return (
@@ -44,8 +54,7 @@ const Filter = () => {
       >
         <option disabled>Filter by Types</option>
         <option value="All Types">All Types</option>
-        {types.length &&
-          types.map((type) => (
+        {types.length && types.map((type) => (
             <option key={type.name} value={type.name}>
               {type.name}
             </option>
@@ -71,9 +80,20 @@ const Filter = () => {
         <option value="Upward">Upward</option>
         <option value="Descendant">Descendant</option>
       </select>
+
+      <select
+        value={filterOrigin}
+        onChange={handleOrigin}
+        className="filterbar-select"
+      >
+        <option disabled>Filter by Origin</option>
+        <option value="pokemonAll">All Origins</option>
+        <option value="pokemonApi">Filter By API</option>
+        <option value="pokemonDB">Filter By DB</option>
+
+      </select>
     </>
   );
 };
 
 export default Filter;
-

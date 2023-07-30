@@ -11,7 +11,6 @@ const PokemonDetail = (props) => {
     dispatch(getDetail(id))
   }, [])
 
-  console.log("PokemonDetail", detailPokemons)
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.detailsCard}>

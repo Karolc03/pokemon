@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 export const GET_POKEMONS = "GET_POKEMONS";
 export const GET_DETAILS = "GET_DETAILS";
 export const GET_POKEMON_BY_NAME = "GET_POKEMON_BY_NAME";
@@ -7,6 +7,7 @@ export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const GET_TYPES = "GET_TYPES";
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE";
 export const FILTER_BY_ATTACK = "FILTER_BY_ATTACK";
+export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
 
 export const getPokemons = () => {
   return function (dispatch) {
@@ -15,21 +16,27 @@ export const getPokemons = () => {
       .then((response) => response.data)
       .then((data) => dispatch({ type: GET_POKEMONS, payload: data }));
   };
-}
-  export const getDetail = (id) => {
-    return function (dispatch) {
-      axios
-        .get(`http://localhost:3001/pokemons/${id}`)
-        .then((response) => response.data)
-        .then((data) => dispatch({ type: GET_DETAILS, payload: data }));
-    };
+};
+export const getDetail = (id) => {
+  return function (dispatch) {
+    axios
+      .get(`http://localhost:3001/pokemons/${id}`)
+      .then((response) => response.data)
+      .then((data) => dispatch({ type: GET_DETAILS, payload: data }));
+  };
 };
 export const getPokemonByName = (name) => {
   return function (dispatch) {
     axios
       .get(`http://localhost:3001/pokemons?name=${name}`)
       .then((response) => response.data)
-      .then((data) => dispatch({ type: GET_POKEMON_BY_NAME, payload: data }));
+      .then((data) => dispatch({ type: GET_POKEMON_BY_NAME, payload: data }))
+      .catch(() =>
+        dispatch({
+          type: GET_POKEMON_BY_NAME,
+          payload: "NO HAY POKEMON CON ESE NOMBRE",
+        })
+      );
   };
 };
 export const postPokemon = (pokemon) => {
@@ -42,31 +49,34 @@ export const postPokemon = (pokemon) => {
 };
 export const getTypes = () => (dispatch) => {
   axios
-    .get('http://localhost:3001/types')
+    .get("http://localhost:3001/types")
     .then((response) => response.data)
     .then((types) => dispatch({ type: GET_TYPES, payload: types }));
 };
-export const filterByOrder = (order) => {
+
+export const getPokemonsByOrigin = (origin) => {
   return {
-    type: FILTER_BY_NAME,
-    payload: order
-  }
-}
-export const filterByType = (pokemonType) =>{
+    type: FILTER_BY_ORIGIN,
+    payload: origin,
+  };
+};
+
+export const filterByType = (pokemonType) => {
   return {
     type: FILTER_BY_TYPE,
-    payload: pokemonType
-  }
-
-}
+    payload: pokemonType,
+  };
+};
 export const filterByName = (order) => {
   return {
     type: FILTER_BY_NAME,
-    payload: order
-  }}
+    payload: order,
+  };
+};
 
-  export const filterByAttack= (order) => {
-    return {
-      type: FILTER_BY_ATTACK,
-      payload: order
-    }}
+export const filterByAttack = (order) => {
+  return {
+    type: FILTER_BY_ATTACK,
+    payload: order,
+  };
+};
