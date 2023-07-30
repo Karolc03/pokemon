@@ -1,44 +1,47 @@
 .bodyContainer {
-   background-image: url("https://wallpaperaccess.com/full/2786200.jpg");
-   background-size: cover;
-   background-repeat: no-repeat;
-   display: flex;
-   justify-content: flex-end; /* Alinea el contenido en el lado derecho */
-   align-items: center;
-   min-height: 100vh; 
- }
- 
- .content {
-   position: relative; /* Hace que los elementos dentro de .content utilicen posicionamiento relativo */
-   text-align: center; /* Centra el contenido horizontalmente */
- }
- 
- .heading {
-   font-size: 48px;
-   color: rgb(255, 170, 0);
-   text-shadow: 0 0 10px rgb(212, 202, 212), 0 0 20px rgba(255, 255, 255, 1),
-     0 0 30px rgb(244, 239, 235), 0 0 40px #0f010d, 0 0 70px #ff00de,
-     0 0 80px #1a0117, 0 0 100px #ff9900;
- 
-   /* Posicionamiento absoluto para el texto "BIENVENIDO" */
-   position: absolute;
-   top:-250px; /* Ajusta la posición vertical */
-   right: 200px; /* Ajusta la posición horizontal */
- }
- 
- .homeLink {
-   position: absolute;
-   top: -130px; /* Ajusta la posición vertical para "Home" */
-   right: 300px; /* Ajusta la posición horizontal */
- }
- 
- .buttonLink {
-   text-decoration: none;
-     background-color: rgb(255, 251, 0);
-     padding: 10px ;
-     box-shadow: 30px 06px rgb(255, 251, 0);;
- }
+  background-image: url("https://wallpaperaccess.com/full/2786200.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.content {
+  text-align: center;
+}
+
+.heading {
+  font-size: 48px;
+  color: rgb(247, 247, 247);
+  text-shadow: 0 0 10px rgb(250, 3, 3), 0 0 20px rgb(253, 169, 2),
+    0 0 30px rgb(255, 242, 0), 0 0 40px #0f010d, 0 0 70px #ff00de,
+    0 0 80px #1a0117, 0 0 100px #ff9900;
+  margin-top: -380px; /* Espacio desde la parte superior */
+}
+.heading:hover {
+  /* Efecto para el texto en hover */
+  text-shadow: 0 0 15px rgb(243, 242, 242), 0 0 25px rgb(253, 169, 2),
+    0 0 35px rgb(255, 242, 0), 0 0 45px #0f010d, 0 0 75px #ff00de,
+    0 0 85px #1a0117, 0 0 105px #ff9900;
+}
 
 
+.buttonLink {
+  text-decoration: none;
+  background-color: rgb(255, 251, 0);
+  padding: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Sombra más suave */
+  border-radius: 5px; /* Bordes redondeados */
+  color: #333; /* Color del texto */
+  font-weight: bold; /* Texto en negrita */
+  font-size: 18px; /* Tamaño del texto */
+  transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+}
 
+.buttonLink:hover {
+  background-color: #f4f4f2; /* Cambio de color en hover */
+  transform: scale(1.1); /* Efecto de escala en hover */
+}
 

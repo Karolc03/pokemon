@@ -40,11 +40,12 @@ export const getPokemonByName = (name) => {
   };
 };
 export const postPokemon = (pokemon) => {
-  return function (dispatch) {
+  return function () {
     axios
       .post(`http://localhost:3001/pokemons`, pokemon)
       .then((response) => response.data)
-      .then((data) => dispatch({ type: POST_POKEMON, payload: data }));
+      .then((data) => alert(data))
+      .then(()=>window.location.reload())
   };
 };
 export const getTypes = () => (dispatch) => {

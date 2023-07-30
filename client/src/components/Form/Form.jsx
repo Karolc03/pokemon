@@ -12,6 +12,7 @@ const Form = () => {
     img: "",
     health: "",
     attack: "",
+    defense: "",
     speed: "", //(si tiene).
     height: "", //(si tiene).
     weight: "", //(si tiene).
@@ -22,6 +23,7 @@ const Form = () => {
     img: "",
     health: "",
     attack: "",
+    defense: "",
   });
 
   const handleTypes = (e, tp) => {
@@ -49,7 +51,11 @@ const Form = () => {
         img: value.img,
         health: value.health,
         attack: value.attack,
-        types: value.types.map((t) => ({ name: t.name, id: t.id })),
+        defense: value.defense,
+        speed: value.speed,
+        height: value.height,
+        weight: value.weight,
+        types: value.types.map((t) => t.name),
       })
     );
 
@@ -168,6 +174,30 @@ const Form = () => {
           });
         }
         break;
+      case "defense":
+        const defenseValue = parseInt(value.defense, 10);
+        if (isNaN(defenseValue)) {
+          setErrors({
+            ...errors,
+            defense: "Ingresa solo números enteros positivos",
+          });
+        } else if (defenseValue > 200) {
+          setErrors({
+            ...errors,
+            defense: "El valor de defense no puede ser superior a 200",
+          });
+        } else if (defenseValue === 0) {
+          setErrors({
+            ...errors,
+            defense: "El valor de defense no puede ser 0",
+          });
+        } else {
+          setErrors({
+            ...errors,
+            defense: "",
+          });
+        }
+        break;
       default:
         break;
     }
@@ -233,6 +263,22 @@ const Form = () => {
           </label>
           {errors.attack && <p>{errors.attack}</p>}
         </div>
+
+        <div>
+          <label htmlFor="defense">
+            defense:
+            <input
+              type="number"
+              id="defense"
+              name="defense"
+              value={value.defense}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          {errors.defense && <p>{errors.defense}</p>}
+        </div>
+
         <div>
           <label htmlFor="speed">
             speed:
