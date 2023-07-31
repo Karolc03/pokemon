@@ -2,8 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPokemon, getTypes } from "../../redux/actions";
+import { useHistory } from "react-router-dom";
+import styles from "./Form.module.css"
 
 const Form = () => {
+  const history = useHistory();
+  const handleButton = () => {
+    history.push("/home");
+  };
+
   const types = useSelector((state) => state.types);
   const dispatch = useDispatch();
 
@@ -84,23 +91,23 @@ const Form = () => {
       ...value,
       [name]: fieldValue,
     });
-    handleError(e);
+    handleError(name, fieldValue);
   };
 
-  function handleError(e) {
-    switch (e.target.name) {
+  function handleError(errorName, errorValue) {
+    switch (errorName) {
       case "name":
-        if (!/^[^0-9]*$/.test(value.name.trim())) {
+        if (!/^[^0-9]*$/.test(errorValue.trim())) {
           setErrors({
             ...errors,
             name: "El nombre no puede ser un número",
           });
-        } else if (value.name.trim().length < 3) {
+        } else if (errorValue.trim().length < 3) {
           setErrors({
             ...errors,
             name: "El nombre debe tener al menos 3 caracteres",
           });
-        } else if (value.name.trim().length > 20) {
+        } else if (errorValue.trim().length > 20) {
           setErrors({
             ...errors,
             name: "El nombre no puede tener más de 20 caracteres",
@@ -113,7 +120,8 @@ const Form = () => {
         }
         break;
       case "img":
-        if (/^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)$/.test(value.img)) {
+        const regEx = /\bhttps?:\/\/\S+?\.(png|jpe?g|gif|bmp|svg)\b/
+        if (!regEx.test(errorValue)) {
           setErrors({
             ...errors,
             img: "Solo puedes usar LINK de una URL de imagen",
@@ -126,7 +134,7 @@ const Form = () => {
         }
         break;
       case "health":
-        const healthValue = parseInt(value.health, 10);
+        const healthValue = parseInt(errorValue, 10);
         if (isNaN(healthValue)) {
           setErrors({
             ...errors,
@@ -151,7 +159,7 @@ const Form = () => {
         break;
 
       case "attack":
-        const attackValue = parseInt(value.attack, 10);
+        const attackValue = parseInt(errorValue, 10);
         if (isNaN(attackValue)) {
           setErrors({
             ...errors,
@@ -175,7 +183,7 @@ const Form = () => {
         }
         break;
       case "defense":
-        const defenseValue = parseInt(value.defense, 10);
+        const defenseValue = parseInt(errorValue, 10);
         if (isNaN(defenseValue)) {
           setErrors({
             ...errors,
@@ -204,10 +212,12 @@ const Form = () => {
   }
 
   return (
-    <>
+    <div className={styles.bodyContainer}>
+      <div className={styles.container}>
+      <div className={styles.card}>
       <h2>CREATE POKEMON</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className={styles.formgroup}>
           <label htmlFor="name">
             Name:
             <input
@@ -221,9 +231,10 @@ const Form = () => {
           </label>
           {errors.name && <p>{errors.name}</p>}
         </div>
-        <div>
-          <label htmlFor="img">
-            URL de la imagen:
+
+        <div className={styles.formgroup}>
+                  <label htmlFor="img">
+                  image url:
             <input
               type="text"
               id="img"
@@ -235,7 +246,8 @@ const Form = () => {
           </label>
           {errors.img && <p>{errors.img}</p>}
         </div>
-        <div>
+
+        <div className={styles.formgroup}>
           <label htmlFor="health">
             health:
             <input
@@ -249,7 +261,8 @@ const Form = () => {
           </label>
           {errors.health && <p>{errors.health}</p>}
         </div>
-        <div>
+
+        <div className={styles.formgroup}>
           <label htmlFor="attack">
             attack:
             <input
@@ -264,7 +277,7 @@ const Form = () => {
           {errors.attack && <p>{errors.attack}</p>}
         </div>
 
-        <div>
+        <div className={styles.formgroup}>
           <label htmlFor="defense">
             defense:
             <input
@@ -279,7 +292,7 @@ const Form = () => {
           {errors.defense && <p>{errors.defense}</p>}
         </div>
 
-        <div>
+        <div className={styles.formgroup}>
           <label htmlFor="speed">
             speed:
             <input
@@ -292,7 +305,7 @@ const Form = () => {
           </label>
           {errors.speed && <p>{errors.speed}</p>}
         </div>
-        <div>
+        <div className={styles.formgroup}>
           <label htmlFor="height">
             height:
             <input
@@ -306,7 +319,7 @@ const Form = () => {
           </label>
           {errors.height && <p>{errors.height}</p>}
         </div>
-        <div>
+        <div className={styles.formgroup}>
           <label htmlFor="weight">
             weight:
             <input
@@ -319,7 +332,7 @@ const Form = () => {
             />
           </label>
           {errors.weight && <p>{errors.weight}</p>}
-        </div>
+        </div >
 
         {types.map((t) => (
           <button
@@ -330,7 +343,7 @@ const Form = () => {
             {t.name}
           </button>
         ))}
-        <div>
+        <div className={styles.cardtype}>
           {value.types && value.types.length
             ? value.types.map((t) => (
                 <button
@@ -341,11 +354,14 @@ const Form = () => {
                   {t.name} X
                 </button>
               ))
-            : "Agrega tipos a tu pokemon"}
+            : "ADD TYPES TO YOUR POKEMON"}
         </div>
         <input type="submit" />
       </form>
-    </>
+      <button className={styles.buttonhome} onClick={handleButton}>GO TO HOME </button>
+    </div>
+    </div>
+    </div>
   );
 };
 export default Form;

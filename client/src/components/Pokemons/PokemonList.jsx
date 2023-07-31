@@ -20,13 +20,16 @@ const PokemonList = () => {
     setMaximo(Math.ceil(pokemons.length / porPagina));
     setPagina(1);
   }, [pokemons]);
+  
 
   if (typeof pokemons === "string") return <div className={styles.contenedor}> {pokemons}</div>;
   return (
     <>
+    <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
+    <div className={styles.Pokemon}>
       <div className={styles.contenedor}>
         {!pokemons.length ? (
-          <></>
+          <> LOADING </>
         ) : (
           pokemons
             .slice(
@@ -45,6 +48,8 @@ const PokemonList = () => {
         )}
       </div>
       <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
+      </div>
+      
     </>
   );
 };

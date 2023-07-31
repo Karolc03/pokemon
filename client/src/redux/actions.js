@@ -22,13 +22,16 @@ export const getDetail = (id) => {
     axios
       .get(`http://localhost:3001/pokemons/${id}`)
       .then((response) => response.data)
-      .then((data) => dispatch({ type: GET_DETAILS, payload: data }));
+      .then((data) => {
+        console.log('DATA', data);
+        return dispatch({ type: GET_DETAILS, payload: data })
+      })
   };
 };
 export const getPokemonByName = (name) => {
   return function (dispatch) {
     axios
-      .get(`http://localhost:3001/pokemons?name=${name}`)
+      .get(`http://localhost:3001/pokemons?name=${name.toLowerCase()}`)
       .then((response) => response.data)
       .then((data) => dispatch({ type: GET_POKEMON_BY_NAME, payload: data }))
       .catch(() =>

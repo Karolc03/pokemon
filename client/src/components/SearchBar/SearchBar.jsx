@@ -38,11 +38,7 @@ export default function SearchBar() {
       <button type="submit" className={styles.buscar} >
         Search
       </button>
-      {/* <button>Filtrar API </button>
-       <button>Filtrar DB </button>
-       <button>Ordenar A - Z </button>
-       <button>Ordenar Z - A </button>
-       <button>Ordenar Por ataque </button>  */}
+      
     </form>
   );
 }

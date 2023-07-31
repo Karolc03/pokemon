@@ -1,24 +1,37 @@
 .card {
     width: 300px; /* Ancho de la tarjeta */
     padding: 15px; /* Espacio interno de la tarjeta */
-    border: 1px solid #ccc; /* Borde de la tarjeta */
+    border: 3px solid #000000; /* Borde de la tarjeta */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra de la tarjeta */
-    background-color: #fff; /* Color de fondo de la tarjeta */
+    background-color: #fafafa; /* Color de fondo de la tarjeta */
+    margin: 20px;
+    box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+    -webkit-box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+    -moz-box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+    
+  }
+  .card:hover{
+    background-color: rgb(226, 222, 222) ;
+    
   }
   
   /* Estilos para el encabezado de la tarjeta */
   .header {
-    font-size: 18px; 
+    font-size: 30px; 
     font-weight: bold; 
     margin-bottom: 10px; 
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(0, 0, 0);
   }
-  
+  .header:hover{
+    text-shadow: 0 0 10px rgb(208, 12, 12) , 0 0 20px rgb(225, 47, 47)  ;
+}
  
   /* Estilos para el pie de la tarjeta */
   .footer {
     margin-top: 10px; 
-    color: #888; 
+    color: #1b1a1a; 
   }
   .image{
     border-radius: 0%;
@@ -27,10 +40,14 @@
 }
 
 .image:hover{
-    border-radius: 80%;
+    border-radius: 0%;
     transition:all .5s ease-in-out;
     filter: none;
     box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
     -webkit-box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
     -moz-box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+}
+
+a{
+  text-decoration:none;
 }

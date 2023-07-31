@@ -11,13 +11,7 @@ const NavBar = () => {
       <div className={styles.searchContainer}>
         <SearchBar />
       </div>
-        <li className={styles.navbaritem}>
-          <Link to="/">Landing</Link>
-        </li>
-        <li className={styles.navbaritem}>
-          <Link to="/home">Home</Link>
-        </li>
-        <li className={styles.navbaritem}>
+          <li className={styles.navbaritem}>
           <Link to="/Form">Create your pokemon</Link>
         </li>
 

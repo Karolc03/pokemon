@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styles from "./Filter.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTypes,
@@ -50,7 +51,7 @@ const Filter = () => {
       <select
         value={filterType}
         onChange={handleType}
-        className="filterbar-select"
+        className={styles.filterbarselect}
       >
         <option disabled>Filter by Types</option>
         <option value="All Types">All Types</option>
@@ -64,7 +65,7 @@ const Filter = () => {
       <select
         value={filterAttack}
         onChange={handleAttack}
-        className="filterbar-select"
+        className={styles.filterbarselect}
       >
         <option disabled>Filter by Attack</option>
         <option value="Score Upward">Score Upward</option>
@@ -74,7 +75,7 @@ const Filter = () => {
       <select
         value={filterOrder}
         onChange={handleOrder}
-        className="filterbar-select"
+        className={styles.filterbarselect}
       >
         <option disabled>Filter by Order</option>
         <option value="Upward">Upward</option>
@@ -84,7 +85,7 @@ const Filter = () => {
       <select
         value={filterOrigin}
         onChange={handleOrigin}
-        className="filterbar-select"
+        className={styles.filterbarselect}
       >
         <option disabled>Filter by Origin</option>
         <option value="pokemonAll">All Origins</option>

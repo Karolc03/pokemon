@@ -4,22 +4,6 @@
     justify-content: center; /* Asegura que las tarjetas se envuelvan a una nueva línea si no caben en el ancho del contenedor */
   }
   
-  .card {
-    flex: 0 0 200px; /* Flex-grow, flex-shrink y flex-basis (ancho inicial) */
-    height: 150px;
-    margin: 10px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  .wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 100px;
-    grid-gap: 10px;
-  }
-  .wrapper div:nth-child(2) {
-    grid-column: 3;
-    grid-row: 2 / 4;
+   .Pokemon {
+    margin: 30px; /* Ajusta el valor según la separación deseada */
   }

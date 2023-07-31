@@ -75,7 +75,7 @@ const rootReducer = (state = initialState, action) => {
       const sortingFunction =
         action.payload === "Upward" ? ascendingOrder : descendingOrder;
 
-      const auxName = [...state.pokemonFilters].sort(sortingFunction);
+      const auxName = [...state.pokemons].sort(sortingFunction);
 
       return {
         ...state,
@@ -90,7 +90,7 @@ const rootReducer = (state = initialState, action) => {
           ? ascendingOrderAttack
           : descendingOrderAttack;
 
-      const auxAttack = [...state.pokemonFilters].sort(sortingFunctionAttack);
+      const auxAttack = [...state.pokemons].sort(sortingFunctionAttack);
 
       return {
         ...state,
@@ -100,17 +100,19 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload === "All Types") {
         return {
           ...state,
-          pokemonFilters: [...state.pokemonAll],
-          pokemons: [...state.pokemonAll],
+          pokemons: [...state.pokemonFilters],
         };
       } else {
         return {
           ...state,
-          pokemonFilters: [
-            ...state.pokemonAll.filter((p) => p.types.includes(action.payload)),
-          ],
           pokemons: [
-            ...state.pokemonAll.filter((p) => p.types.includes(action.payload)),
+            ...state.pokemonFilters.filter((p) => {
+              if(p.types.length){
+                if(typeof p.types[0] === 'string') return p.types.includes(action.payload)
+                return p.types.map(t => t.name).includes(action.payload)
+              }
+              return false
+            }),
           ],
         };
       }

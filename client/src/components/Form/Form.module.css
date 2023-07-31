@@ -1,0 +1,62 @@
+.bodyContainer {
+  background-image: url("https://www.wallpapertip.com/wmimgs/6-66541_squirtle-pokemon-background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+.card {
+  width: 500px; /* Ancho de la tarjeta */
+  padding: 15px; /* Espacio interno de la tarjeta */
+  border: 3px solid #000000; /* Borde de la tarjeta */
+  border-radius: 8px; /* Bordes redondeados */
+    background-color: #fafafa; /* Color de fondo de la tarjeta */
+    box-shadow: 19px 23px 5px 2px rgba(0,0,0,0.36);
+    text-align: left;
+}
+.container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 100vh;
+  margin-left: 80px;
+
+}
+
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  width: 480px; /* Ancho fijo del label */
+}
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+}
+button {
+  background-color: #bfc6bf;
+  color: #050505;
+  border: 5px;
+  padding: 5px 20px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px ;
+  margin-top: 5px ;
+  
+}
+
+
+.cardtype {
+  width: 450px; /* Ancho de la tarjeta */
+  padding: 8px; /* Espacio interno de la tarjeta */
+  border: 1px solid #000000; /* Borde de la tarjeta */
+  border-radius: 0px; /* Bordes redondeados */
+    background-color: #e0d0d0; /* Color de fondo de la tarjeta */
+    text-align: left;
+    margin-top: 8px;
+    margin-block-end: 8px;
+}
