@@ -64,7 +64,7 @@ const getInformationDB = async () => {
         attributes: [],
       },
     },
-  });
+  })
 };
 
 const getAllInformation = async (req, res, next) => {
@@ -90,7 +90,8 @@ const getPokemonById = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (isNaN(id)) {
-      const pokemon = await Pokemon.findByPk(id, {
+      console.log('LLEGUE POR ESTE LADITO')
+      return Pokemon.findByPk(id, {
         include: {
           model: Type,
           attributes: ["name"],
@@ -98,15 +99,17 @@ const getPokemonById = async (req, res, next) => {
             attributes: [],
           },
         },
-      });
-      if (pokemon) {
-        return res.json({
-          ...pokemon.toJSON(),
-          types: pokemon.toJSON().types.map(t => t.name),
-        });
-      } else {
-        return res.json("error");
-      }
+      }).then((pokemon) => {
+        if (pokemon) {
+          return res.json({
+            ...pokemon.toJSON(),
+            types: pokemon.toJSON().types.map(t => t.name),
+          });
+        } else {
+          return res.json("error");
+        }
+      })
+      .catch(() => res.json("error"));
     }
     return axios
       .get(`https://pokeapi.co/api/v2/pokemon/${id}`) 
