@@ -29,15 +29,15 @@ const rootReducer = (state = initialState, action) => {
     case GET_POKEMONS:
       return {
         ...state,
-        pokemons: action.payload,// Actualiza la propiedad pokemons en el nuevo estado
+        pokemons: action.payload, // Actualiza la propiedad pokemons en el nuevo estado
         pokemonAll: action.payload,
         pokemonFilters: action.payload,
         pokemonApi: Array.isArray(action.payload)
-          ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1))//condición es que el id sea un número entero
+          ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1)) //condición es que el id sea un número entero
           : action.payload, //sino, se asignará el mismo valor sin filtrar
         pokemonDB: Array.isArray(action.payload)
           ? action.payload.filter(
-              (pokemon) => !Number.isInteger(pokemon.id - 1)//condición es que el id NO sea un número entero
+              (pokemon) => !Number.isInteger(pokemon.id - 1) //condición es que el id NO sea un número entero
             )
           : action.payload,
       };
@@ -67,21 +67,24 @@ const rootReducer = (state = initialState, action) => {
         types: action.payload,
       };
     case FILTER_BY_NAME:
+      if (typeof state.pokemons === "string") return { ...state };
       const ascendingOrder = (a, b) =>
         a.name.toLowerCase().localeCompare(b.name.toLowerCase()); //ascendingOrder y descendingOrder, utilizando el método localeCompare() para realizar la comparación de cadenas sin distinción entre mayúsculas y minúsculas.
       const descendingOrder = (a, b) =>
-        b.name.toLowerCase().localeCompare(a.name.toLowerCase());//localeCompare() para realizar la comparación de cadenas sin distinción entre mayúsculas y minúsculas,
+        b.name.toLowerCase().localeCompare(a.name.toLowerCase()); //localeCompare() para realizar la comparación de cadenas sin distinción entre mayúsculas y minúsculas,
 
       const sortingFunction =
-        action.payload === "Upward" ? ascendingOrder : descendingOrder;// Se utiliza action.payload para determinar la dirección del ordenamiento
+        action.payload === "Upward" ? ascendingOrder : descendingOrder; // Se utiliza action.payload para determinar la dirección del ordenamiento
 
-      const auxName = [...state.pokemons].sort(sortingFunction);//luego se ordena esta copia utilizando la función 
+      const auxName = [...state.pokemons].sort(sortingFunction); //luego se ordena esta copia utilizando la función
 
       return {
         ...state,
         pokemons: auxName,
       };
     case FILTER_BY_ATTACK:
+      if (typeof state.pokemons === "string") return { ...state };
+
       const ascendingOrderAttack = (a, b) => a.attack - b.attack;
       const descendingOrderAttack = (a, b) => b.attack - a.attack;
 
@@ -89,7 +92,6 @@ const rootReducer = (state = initialState, action) => {
         action.payload === "Score Upward"
           ? ascendingOrderAttack
           : descendingOrderAttack;
-
       const auxAttack = [...state.pokemons].sort(sortingFunctionAttack);
 
       return {
@@ -103,21 +105,23 @@ const rootReducer = (state = initialState, action) => {
           pokemons: [...state.pokemonFilters],
         };
       } else {
+        const pkmns = [
+          ...state.pokemonFilters.filter((p) => {
+            if (p.types.length) {
+              if (typeof p.types[0] === "string")
+                return p.types.includes(action.payload);
+              return p.types.map((t) => t.name).includes(action.payload);
+            }
+            return false;
+          }),
+        ];
         return {
           ...state,
-          pokemons: [
-            ...state.pokemonFilters.filter((p) => {
-              if(p.types.length){
-                if(typeof p.types[0] === 'string') return p.types.includes(action.payload)
-                return p.types.map(t => t.name).includes(action.payload)
-              }
-              return false
-            }),
-          ],
+          pokemons: pkmns.length ? pkmns : "NO HAY POKEMON CON ESE NOMBRE",
         };
       }
     case FILTER_BY_ORIGIN:
-      console.log("origin", action.payload)
+      console.log("origin", action.payload);
       if (action.payload === "pokemonApi") {
         return {
           ...state,

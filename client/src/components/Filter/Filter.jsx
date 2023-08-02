@@ -25,24 +25,31 @@ const Filter = () => {
 
   function handleType(e) {
     setFilterType(e.target.value);
+    setFilterAttack('Filter by Attack')
+    setFilterOrder("Filter by Order");
     dispatch(filterByType(e.target.value)); // Usa la acción "filterByType" para actualizar el estado en el store
   }
 
   function handleAttack(e) {
     e.preventDefault()
     setFilterAttack(e.target.value);
+    setFilterOrder("Filter by Order");
     dispatch(filterByAttack(e.target.value)); // Usa la acción "filterByAttack" para actualizar el estado en el store
   }
 
   function handleOrder(e) {
     e.preventDefault()
     setFilterOrder(e.target.value);
+    setFilterAttack('Filter by Attack')
     dispatch(filterByName(e.target.value)); // Usa la acción "filterByOrder" para actualizar el estado en el store
   }
 
   function handleOrigin(e) {
     e.preventDefault()
     setFilterOrigin(e.target.value);
+    setFilterType('Filter by Types')
+    setFilterAttack('Filter by Attack')
+    setFilterOrder("Filter by Order");
     dispatch(getPokemonsByOrigin(e.target.value)); 
   }
 

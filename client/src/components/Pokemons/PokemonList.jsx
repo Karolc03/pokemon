@@ -11,7 +11,6 @@ const PokemonList = () => {
   const [maximo, setMaximo] = useState(0);
   const [pagina, setPagina] = useState(1);
   const porPagina = 12;
-  const [filteredPokemons, setFilteredPokemons] = useState(pokemons);
 
   useEffect(() => {
     dispatch(getPokemons());
@@ -20,7 +19,6 @@ const PokemonList = () => {
   useEffect(() => {
     setMaximo(Math.ceil(pokemons.length / porPagina));
     setPagina(1);
-    setFilteredPokemons(pokemons);
   }, [pokemons]);
 
   if (typeof pokemons === "string")
@@ -42,16 +40,15 @@ const PokemonList = () => {
     );
   return (
     <>
-      <Paginacion pagina={pagina} setPagina={setPagina} maximo={maximo} />
       <div className={styles.Pokemon}>
         <div className={styles.contenedor}>
-          {!filteredPokemons.length ? (
+          {!pokemons.length ? (
             <img
               alt="imagen de loading"
               src="https://media1.giphy.com/media/yhfTY8JL1wIAE/giphy.gif?cid=ecf05e479p1v96z52alafodz7lpvmrrxnekng42bli2nnsv7&ep=v1_gifs_search&rid=giphy.gif&ct=g"
             />
           ) : (
-            filteredPokemons
+            pokemons
               .slice(
                 (pagina - 1) * porPagina,
                 (pagina - 1) * porPagina + porPagina

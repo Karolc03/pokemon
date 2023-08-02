@@ -1,19 +1,21 @@
- .detailsContainer {
-    position: relative;
-    background-image: url('https://media0.giphy.com/media/gtuQIOTlQdk9Mx3L5i/giphy.gif?cid=ecf05e47t1njk6417rp5yxw5ly21lluxsiohhthopveid5ea&ep=v1_gifs_search&rid=giphy.gif&ct=g');
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100vh;    
-    display: flex; /* Utilizamos flexbox para alinear los elementos en línea */
-    justify-content: center; /* Centramos los elementos horizontalmente en el navegador */
-    align-items: center; 
-  }
-  
+.detailsContainer {
+  position: relative;
+  background-image: url("https://media0.giphy.com/media/gtuQIOTlQdk9Mx3L5i/giphy.gif?cid=ecf05e47t1njk6417rp5yxw5ly21lluxsiohhthopveid5ea&ep=v1_gifs_search&rid=giphy.gif&ct=g");
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  display: flex; /* Utilizamos flexbox para alinear los elementos en línea */
+  justify-content: center; /* Centramos los elementos horizontalmente en el navegador */
+  align-items: center;
+}
+.img {
+  width: fit-content;
+}
 .detailsCard,
 .imageCard {
-  color:white;
-  width: 500px; /* Ancho de las tarjetas */
+  color: white;
+  width: 474px; /* Ancho de las tarjetas */
   margin: 10px; /* Espacio entre las tarjetas */
   padding: 15px; /* Espacio interno de las tarjetas */
   border: 3px solid #000000; /* Borde de las tarjetas */
@@ -24,18 +26,18 @@
   font-size: medium;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.h1{
-  font-size:xx-large;
+.h1 {
+  font-size: xx-large;
   display: flex; /* Utilizamos flexbox para alinear los elementos en línea */
-  justify-content: center; 
+  justify-content: center;
   color: red;
   transition: color 0.3s;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-.h1:hover{
+.h1:hover {
   color: rgb(141, 67, 67);
 }
-.button{
+.button {
   text-align: center;
   color: #f1eeee; /* Color del texto del botón */
   /* Tamaño y relleno */

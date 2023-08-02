@@ -30,8 +30,8 @@ const PokemonDetail = (props) => {
           <Link to="/home">GO TO HOME</Link>
         </button>
       </div>
-      <div className={styles.imageCard}>
-        <img src={detailPokemons.img} alt={detailPokemons.name} />
+      <div>
+        <img className={styles.imageCard} src={detailPokemons.img} alt={detailPokemons.name} />
       </div>
     </div>
   );

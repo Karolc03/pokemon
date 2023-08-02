@@ -17,10 +17,8 @@ export default function Paginacion({pagina,setPagina,maximo}){
     return(
         <div className={styles.containerpaginacion}>
             <button className={styles.buttonpaginacion} onClick={prevButton}>Prev</button>
-            <p className={styles.textpaginacion}>Página {pagina} de {maximo}</p>
+            <p className={styles.textpaginacion}>Page {pagina} of {maximo}</p>
             <button className={styles.buttonpaginacion} onClick={nextButton}>Next</button>
-
-            
         </div>
     )
 }

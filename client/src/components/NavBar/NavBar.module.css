@@ -8,12 +8,10 @@
     left: 0; 
     right: 0; 
     display: flex; 
-    justify-content: space-between; 
+    justify-content: center;
+    gap: 300px; 
     align-items: center; 
     z-index: 9999;
-  }
-  .searchContainer {
-    margin-right: 60px; /* Establece el margen derecho para separar el botón de búsqueda de los elementos de la lista */
   }
 
 .create{
@@ -38,3 +36,6 @@
     transform: scale(1.2)
 }
   
+.img{
+  width: 150px;
+}
