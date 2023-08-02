@@ -10,9 +10,9 @@ const NotFound = () => {
   return (
     
     <div className={styles.container}>
+      <button className={styles.home} onClick={handleButton}>GO TO HOME </button>
       <h1 className={styles.message}>404 - Not Found</h1>
       <p className={styles.message}>Sorry, the page you are looking for was not found..</p>
-      <button onClick={handleButton}>GO TO HOME </button>
     </div>
     
   );

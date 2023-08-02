@@ -36,6 +36,5 @@ const PokemonDetail = (props) => {
     </div>
   );
 };
-// && detailPokemons.types.map(t => t.type.name).join(', ')
 
 export default PokemonDetail;

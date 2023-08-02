@@ -5,13 +5,15 @@ const Pokemon = ({ name, img, types, id }) => {
   const ntype = types && types.map(type => typeof type === "string" ? type : type.name).join(", ")
   
   return (
-    <div className={styles.card} >
+    
+    <div className={styles.card}>
     <a href={`/detail/${id}`}>
       <h3 className={styles.header}>{name}</h3>
       <img className={styles.image} src={img} alt={name} />
       <h3 className={styles.footer}>{ntype}</h3>
     </a>
     </div>
+
   );
 };
 

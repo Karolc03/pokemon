@@ -12,9 +12,10 @@ export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
 export const getPokemons = () => {
   return function (dispatch) {
     axios
-      .get("http://localhost:3001/pokemons")
-      .then((response) => response.data)
+      .get("http://localhost:3001/pokemons") //Hace una solicitud GET a la API
+      .then((response) => response.data) //Extrae la data
       .then((data) => dispatch({ type: GET_POKEMONS, payload: data }));
+    // Dispatch la acción GET_POKEMONS desde la API
   };
 };
 export const getDetail = (id) => {
@@ -23,9 +24,9 @@ export const getDetail = (id) => {
       .get(`http://localhost:3001/pokemons/${id}`)
       .then((response) => response.data)
       .then((data) => {
-        console.log('DATA', data);
-        return dispatch({ type: GET_DETAILS, payload: data })
-      })
+        console.log("DATA", data);
+        return dispatch({ type: GET_DETAILS, payload: data });
+      });
   };
 };
 export const getPokemonByName = (name) => {
@@ -48,7 +49,7 @@ export const postPokemon = (pokemon) => {
       .post(`http://localhost:3001/pokemons`, pokemon)
       .then((response) => response.data)
       .then((data) => alert(data))
-      .then(()=>window.location.reload())
+      .then(() => window.location.reload());
   };
 };
 export const getTypes = () => (dispatch) => {

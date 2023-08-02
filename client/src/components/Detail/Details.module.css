@@ -12,12 +12,13 @@
   
 .detailsCard,
 .imageCard {
+  color:white;
   width: 500px; /* Ancho de las tarjetas */
   margin: 10px; /* Espacio entre las tarjetas */
   padding: 15px; /* Espacio interno de las tarjetas */
   border: 3px solid #000000; /* Borde de las tarjetas */
   border-radius: 8px; /* Bordes redondeados */
-  background-color: #fafafa; /* Color de fondo de las tarjetas */
+  background-image: url("https://media1.giphy.com/media/xT8qBfjJhOmNPTVWU0/giphy.gif?cid=ecf05e47zi8umfjh0i33mjg7t41wfmtu3o5g19yuydca8km4&ep=v1_gifs_search&rid=giphy.gif&ct=g"); /* Color de fondo de las tarjetas */
   box-shadow: 19px 23px 5px 2px rgba(0, 0, 0, 0.36);
   text-align: center;
   font-size: medium;
@@ -36,7 +37,7 @@
 }
 .button{
   text-align: center;
-  color: #070404; /* Color del texto del botón */
+  color: #f1eeee; /* Color del texto del botón */
   /* Tamaño y relleno */
   padding: 10px 20px; /* Espacio interno (vertical, horizontal) */
   font-size: 20px; /* Tamaño de la fuente */

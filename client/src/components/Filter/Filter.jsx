@@ -47,7 +47,7 @@ const Filter = () => {
   }
 
   return (
-    <>
+    <div className={styles.filterContainer}>
       <select
         value={filterType}
         onChange={handleType}
@@ -78,8 +78,8 @@ const Filter = () => {
         className={styles.filterbarselect}
       >
         <option disabled>Filter by Order</option>
-        <option value="Upward">Upward</option>
-        <option value="Descendant">Descendant</option>
+        <option value="Upward">A - Z</option>
+        <option value="Descendant">Z - A</option>
       </select>
 
       <select
@@ -93,7 +93,7 @@ const Filter = () => {
         <option value="pokemonDB">Filter By DB</option>
 
       </select>
-    </>
+    </div>
   );
 };
 

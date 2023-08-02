@@ -29,15 +29,15 @@ const rootReducer = (state = initialState, action) => {
     case GET_POKEMONS:
       return {
         ...state,
-        pokemons: action.payload,
+        pokemons: action.payload,// Actualiza la propiedad pokemons en el nuevo estado
         pokemonAll: action.payload,
         pokemonFilters: action.payload,
         pokemonApi: Array.isArray(action.payload)
-          ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1))
-          : action.payload,
+          ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1))//condición es que el id sea un número entero
+          : action.payload, //sino, se asignará el mismo valor sin filtrar
         pokemonDB: Array.isArray(action.payload)
           ? action.payload.filter(
-              (pokemon) => !Number.isInteger(pokemon.id - 1)
+              (pokemon) => !Number.isInteger(pokemon.id - 1)//condición es que el id NO sea un número entero
             )
           : action.payload,
       };
@@ -70,12 +70,12 @@ const rootReducer = (state = initialState, action) => {
       const ascendingOrder = (a, b) =>
         a.name.toLowerCase().localeCompare(b.name.toLowerCase()); //ascendingOrder y descendingOrder, utilizando el método localeCompare() para realizar la comparación de cadenas sin distinción entre mayúsculas y minúsculas.
       const descendingOrder = (a, b) =>
-        b.name.toLowerCase().localeCompare(a.name.toLowerCase());
+        b.name.toLowerCase().localeCompare(a.name.toLowerCase());//localeCompare() para realizar la comparación de cadenas sin distinción entre mayúsculas y minúsculas,
 
       const sortingFunction =
-        action.payload === "Upward" ? ascendingOrder : descendingOrder;
+        action.payload === "Upward" ? ascendingOrder : descendingOrder;// Se utiliza action.payload para determinar la dirección del ordenamiento
 
-      const auxName = [...state.pokemons].sort(sortingFunction);
+      const auxName = [...state.pokemons].sort(sortingFunction);//luego se ordena esta copia utilizando la función 
 
       return {
         ...state,

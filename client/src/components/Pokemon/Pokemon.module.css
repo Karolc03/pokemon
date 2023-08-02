@@ -51,3 +51,19 @@
 a{
   text-decoration:none;
 }
+.button{
+  margin: 5px;
+    padding: 8px;
+    border: 2px solid #111111;
+    background-color: #fdfdfb;
+    color: #0a0000;
+    font-size: small;
+    font-weight: 300;
+    font-weight: bold;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: relative;
+    right: 130px;
+  }
+  .button:hover{
+    background-color: #f60909;
+}

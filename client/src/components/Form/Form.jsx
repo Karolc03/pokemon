@@ -206,6 +206,78 @@ const Form = () => {
           });
         }
         break;
+        case "speed":
+          const speedValue = parseInt(errorValue, 10);
+          if (isNaN(speedValue)) {
+            setErrors({
+              ...errors,
+              speed: "Ingresa solo números enteros positivos",
+            });
+          } else if (speedValue > 200) {
+            setErrors({
+              ...errors,
+              speed: "El valor de defense no puede ser superior a 200",
+            });
+          } else if (speedValue === 0) {
+            setErrors({
+              ...errors,
+              speed: "El valor de defense no puede ser 0",
+            });
+          } else {
+            setErrors({
+              ...errors,
+              speed: "",
+            });
+          }
+          break;
+        case "height":
+          const heightValue = parseInt(errorValue, 10);
+          if (isNaN(heightValue)) {
+            setErrors({
+              ...errors,
+              height: "Ingresa solo números enteros positivos",
+            });
+          } else if (heightValue > 200) {
+            setErrors({
+              ...errors,
+              height: "El valor de defense no puede ser superior a 200",
+            });
+          } else if (heightValue === 0) {
+            setErrors({
+              ...errors,
+              height: "El valor de defense no puede ser 0",
+            });
+          } else {
+            setErrors({
+              ...errors,
+              height: "",
+            });
+          }
+          break;
+        case "weight":
+          const weightValue = parseInt(errorValue, 10);
+          if (isNaN(weightValue)) {
+            setErrors({
+              ...errors,
+              weight: "Ingresa solo números enteros positivos",
+            });
+          } else if (weightValue > 200) {
+            setErrors({
+              ...errors,
+              weight: "El valor de defense no puede ser superior a 200",
+            });
+          } else if (weightValue === 0) {
+            setErrors({
+              ...errors,
+              weight: "El valor de defense no puede ser 0",
+            });
+          } else {
+            setErrors({
+              ...errors,
+              weight: "",
+            });
+          }
+        break;
       default:
         break;
     }
@@ -213,13 +285,15 @@ const Form = () => {
 
   return (
     <div className={styles.bodyContainer}>
+      <button className={styles.buttonHome} onClick={handleButton}>GO TO HOME </button>
       <div className={styles.container}>
       <div className={styles.card}>
       <h2>CREATE POKEMON</h2>
       <form onSubmit={handleSubmit}>
         <div className={styles.formgroup}>
           <label htmlFor="name">
-            Name:
+            <div>
+           Name: </div>
             <input
               type="text"
               id="name"
@@ -227,9 +301,12 @@ const Form = () => {
               value={value.name}
               onChange={handleChange}
               required
+              autocomplete="off"
             />
           </label>
-          {errors.name && <p>{errors.name}</p>}
+          <div className={styles.error}>
+          {errors.name && <p >{errors.name}</p>}
+          </div>
         </div>
 
         <div className={styles.formgroup}>
@@ -244,9 +321,12 @@ const Form = () => {
               required
             />
           </label>
-          {errors.img && <p>{errors.img}</p>}
+          <div className={styles.error}>
+          {errors.img && <p >{errors.img}</p>}
+        </div>
         </div>
 
+        
         <div className={styles.formgroup}>
           <label htmlFor="health">
             health:
@@ -259,7 +339,9 @@ const Form = () => {
               required
             />
           </label>
+          <div className={styles.error}>
           {errors.health && <p>{errors.health}</p>}
+        </div>
         </div>
 
         <div className={styles.formgroup}>
@@ -274,7 +356,9 @@ const Form = () => {
               required
             />
           </label>
+          <div className={styles.error}>
           {errors.attack && <p>{errors.attack}</p>}
+        </div>
         </div>
 
         <div className={styles.formgroup}>
@@ -289,7 +373,9 @@ const Form = () => {
               required
             />
           </label>
+          <div className={styles.error}>
           {errors.defense && <p>{errors.defense}</p>}
+        </div>
         </div>
 
         <div className={styles.formgroup}>
@@ -303,7 +389,9 @@ const Form = () => {
               onChange={handleChange}
             />
           </label>
+          <div className={styles.error}>
           {errors.speed && <p>{errors.speed}</p>}
+        </div>
         </div>
         <div className={styles.formgroup}>
           <label htmlFor="height">
@@ -317,7 +405,9 @@ const Form = () => {
               required
             />
           </label>
+          <div className={styles.error}>
           {errors.height && <p>{errors.height}</p>}
+        </div>
         </div>
         <div className={styles.formgroup}>
           <label htmlFor="weight">
@@ -331,8 +421,10 @@ const Form = () => {
               required
             />
           </label>
+          <div className={styles.error}>
           {errors.weight && <p>{errors.weight}</p>}
         </div >
+        </div>
 
         {types.map((t) => (
           <button
@@ -356,9 +448,9 @@ const Form = () => {
               ))
             : "ADD TYPES TO YOUR POKEMON"}
         </div>
-        <input type="submit" />
+        <input className={styles.send} type="submit" />
       </form>
-      <button className={styles.buttonhome} onClick={handleButton}>GO TO HOME </button>
+      
     </div>
     </div>
     </div>

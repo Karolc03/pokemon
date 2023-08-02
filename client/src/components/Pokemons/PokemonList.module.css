@@ -7,3 +7,26 @@
    .Pokemon {
     margin: 30px; /* Ajusta el valor según la separación deseada */
   }
+.h1{
+  position: relative;
+}
+.img{
+  width: 100%;
+  height: 450px;
+  border-radius: 50%;
+}
+.button{
+  align-items:  top;
+  margin: 5px;
+    padding: 20px;
+    border: 2px solid #111111;
+    background-color: #fdfdfb;
+    color: #0a0000;
+    font-weight: bold;
+    font-size: medium;
+    font-weight: 300;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: relative;
+    top:0px;
+    background-color: rgb(51, 190, 23);
+}
