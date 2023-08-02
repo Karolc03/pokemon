@@ -1,7 +1,7 @@
 const axios = require("axios");
-const { Pokemon, Type } = require("../db");
+const { Pokemon, Type } = require("../db");//representan las tablas "Pokemon" y "Type" en la base de datos.
 
-const getInformationApi = async (limit = 100, offset = 0) => {
+const getInformationApi = async (limit = 100, offset = 0) => { //obtiene información de la API 
   const { data: dataPokemons } = await axios.get(
     "https://pokeapi.co/api/v2/pokemon",
     {
@@ -37,7 +37,7 @@ const getInformationApi = async (limit = 100, offset = 0) => {
   return arr;
 };
 
-const getInformationByName = async (name) => {
+const getInformationByName = async (name) => {//obtiene información del Pokémon por nombre desde la API
   return axios
     .get(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then(({ data: p }) => ({
@@ -54,32 +54,33 @@ const getInformationByName = async (name) => {
     }))
     .catch(() => {});
 };
-
-const getInformationDB = async () => {
-  return await Pokemon.findAll({
+//El método findAll() devuelve una promesa, por lo que utilizamos await
+const getInformationDB = async () => {//Utiliza Sequelize para realizar una consulta a la tabla "Pokemon" y "Type" 
+  return await Pokemon.findAll({ //consulta a la tabla "Pokemon" utilizando el modelo Pokemon de Sequelize.
     include: {
-      model: Type,
+      model: Type,//estamos incluyendo el modelo "Type" en la consulta.
       attributes: ["name"],
-      through: {
-        attributes: [],
+      through: { //relación de muchos a muchos
+        attributes: [],//para que no se incluyan los atributos de la tabla intermedia en el resultado
       },
     },
   })
 };
 
-const getAllInformation = async (req, res, next) => {
+const getAllInformation = async (req, res, next) => {//obtiene información de todos los Pokémon API y DB.
   try {
     const { limit, offset, name } = req.query;
 
-    if (name) {
+    if (name) {//Si existe name, significa que se está buscando por su nombre
       const pkmonsByName = [];
       const pkmon = await getInformationByName(name);
       pkmonsByName.push(pkmon);
       return res.json(pkmonsByName);
     }
+    //Ambas funciones devuelven un array con los datos de los Pokémon obtenidos.
     const infoApi = await getInformationApi(limit, offset);
     const infoDB = await getInformationDB();
-    const allInfo = infoDB.reverse().concat(infoApi);
+    const allInfo = infoDB.reverse().concat(infoApi); //Reverse es tener los datos más recientes primero
     res.status(200).json(allInfo);
   } catch (error) {
     next(error);
@@ -89,9 +90,8 @@ const getAllInformation = async (req, res, next) => {
 const getPokemonById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    if (isNaN(id)) {
-      console.log('LLEGUE POR ESTE LADITO')
-      return Pokemon.findByPk(id, {
+    if (isNaN(id)) {//Si el id no es un número, se trata de un id de DB
+      return Pokemon.findByPk(id, {// Sequelize para buscar el Pokémon en la db
         include: {
           model: Type,
           attributes: ["name"],
@@ -114,7 +114,7 @@ const getPokemonById = async (req, res, next) => {
     return axios
       .get(`https://pokeapi.co/api/v2/pokemon/${id}`) 
         
-      .then(({ data }) => res.json({
+      .then(({ data }) => res.json({// se debe buscar el Pokémon en la API externa
         id: data.id,
         name: data.name,
         img: data.sprites.other.dream_world.front_default,
@@ -137,7 +137,6 @@ const createPokemon = async (req, res, next) => {
   try {
     const { name, img, health, attack, defense, speed, height, weight, types } =
       req.body;
-    console.log("body", req.body);
     if (name && img && health && attack && defense) {
       const pokemon = await Pokemon.create({
         name,
