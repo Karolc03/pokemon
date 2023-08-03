@@ -138,6 +138,7 @@ const createPokemon = async (req, res, next) => {
     const { name, img, health, attack, defense, speed, height, weight, types } =
       req.body;
     if (name && img && health && attack && defense) {
+      console.log("body",req.body)
       const pokemon = await Pokemon.create({
         name,
         img,
@@ -150,7 +151,7 @@ const createPokemon = async (req, res, next) => {
        
       });
       let typeByDB = await Type.findAll({
-        where: {
+        where: {//se busca en la base de datos los tipos de Pokemon que coinciden con los nombres proporcionados en el array types
           name: types,
         },
       });
