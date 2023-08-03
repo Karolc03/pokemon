@@ -5,11 +5,11 @@ import styles from "./Details.module.css";
 import { Link } from "react-router-dom";
 
 const PokemonDetail = (props) => {
-  const detailPokemons = useSelector((state) => state.detailPokemons);
+  const detailPokemons = useSelector((state) => state.detailPokemons);//extraer datos del estado global de Redux
   const dispatch = useDispatch();
-  const id = props.match.params.id;
+  const id = props.match.params.id;//el valor del parámetro id de la URL a través de las props
   useEffect(() => {
-    dispatch(getDetail(id));
+    dispatch(getDetail(id));//acción de Redux 
   }, []);
   if (typeof detailPokemons === "string") {
     window.location.href = "/error";

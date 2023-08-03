@@ -2,16 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postPokemon, getTypes } from "../../redux/actions";
-import { useHistory } from "react-router-dom";
 import styles from "./Form.module.css"
+import { Link } from "react-router-dom";
 
 const Form = () => {
-  const history = useHistory();
-  const handleButton = () => {
-    history.push("/home");
-  };
-
-  const types = useSelector((state) => state.types);
+  const types = useSelector((state) => state.types);//Selector selecciona datos específicos del estado almacenado en la store
   const dispatch = useDispatch();
 
   const [value, setValue] = useState({
@@ -20,10 +15,10 @@ const Form = () => {
     health: "",
     attack: "",
     defense: "",
-    speed: "", //(si tiene).
-    height: "", //(si tiene).
-    weight: "", //(si tiene).
-    types: [], //multiselect
+    speed: "",
+    height: "",
+    weight: "",
+    types: [],
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -31,14 +26,15 @@ const Form = () => {
     health: "",
     attack: "",
     defense: "",
+    types: "Choose at least 1 type",
   });
 
   const handleTypes = (e, tp) => {
     e.preventDefault();
     let newTypes = [];
-    const exist = value.types?.find((t) => t.id === tp.id);
+    const exist = value.types?.find((t) => t.id === tp.id);//Se verifica si el tipo (tp) ya existe en el arreglo de tipos 
     if (exist) {
-      newTypes = value.types.filter((t) => t.id !== tp.id);
+      newTypes = value.types.filter((t) => t.id !== tp.id);// Se crea un nuevo arreglo (newTypes) filtrando los tipos para excluir el tipo actual (tp) que ya existe en el arreglo de tipos (value.types).
     } else {
       newTypes = [...value.types, tp];
     }
@@ -47,21 +43,22 @@ const Form = () => {
       ...value,
       types: newTypes,
     });
+    handleError("types", newTypes);
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (errors.name || errors.img || errors.health || errors.attack) return;
+    if (errors.name || errors.img || errors.health || errors.attack || errors.types) return;//verifica qye no haya errores, si hay, se detiene 
     dispatch(
       postPokemon({
         name: value.name,
         img: value.img,
-        health: value.health,
-        attack: value.attack,
-        defense: value.defense,
-        speed: value.speed,
-        height: value.height,
-        weight: value.weight,
+        health: parseInt(value.health,10),
+        attack: parseInt(value.attack,10),
+        defense: parseInt(value.defense,10),
+        speed: parseInt(value.speed,10),
+        height: parseInt(value.height,10),
+        weight: parseInt(value.weight,10),
         types: value.types.map((t) => t.name),
       })
     );
@@ -70,12 +67,12 @@ const Form = () => {
       //resetea el estado input a su estado original
       name: "",
       img: "",
-      health: 0,
-      attack: 0,
-      defense: 0,
-      speed: 0,
-      height: 0,
-      weight: 0,
+      health: "",
+      attack: "",
+      defense: "",
+      speed: "",
+      height: "",
+      weight: "",
       types: [],
     });
   }
@@ -96,21 +93,34 @@ const Form = () => {
 
   function handleError(errorName, errorValue) {
     switch (errorName) {
+      case "types":
+        if (errorValue.length){
+          setErrors({
+            ...errors,
+            types: '' 
+          }) 
+        }else{
+          setErrors({
+            ...errors,
+            types: 'Choose at least 1 type' 
+          }) 
+        }
+        break;
       case "name":
         if (!/^[^0-9]*$/.test(errorValue.trim())) {
           setErrors({
             ...errors,
-            name: "El nombre no puede ser un número",
+            name: "The name cannot be a number",
           });
         } else if (errorValue.trim().length < 3) {
           setErrors({
             ...errors,
-            name: "El nombre debe tener al menos 3 caracteres",
+            name: "The name must have at least 3 characters",
           });
         } else if (errorValue.trim().length > 20) {
           setErrors({
             ...errors,
-            name: "El nombre no puede tener más de 20 caracteres",
+            name: "The name cannot be longer than 20 characters",
           });
         } else {
           setErrors({
@@ -124,7 +134,7 @@ const Form = () => {
         if (!regEx.test(errorValue)) {
           setErrors({
             ...errors,
-            img: "Solo puedes usar LINK de una URL de imagen",
+            img: "You can only LINK an image URL",
           });
         } else {
           setErrors({
@@ -138,17 +148,17 @@ const Form = () => {
         if (isNaN(healthValue)) {
           setErrors({
             ...errors,
-            health: "Ingresa solo números enteros positivos",
+            health: "Enter only positive integers",
           });
         } else if (healthValue > 200) {
           setErrors({
             ...errors,
-            health: "El valor de health no puede ser superior a 200",
+            health: "The value of health cannot be greater than 200",
           });
         } else if (healthValue === 0) {
           setErrors({
             ...errors,
-            health: "El valor de health no puede ser 0",
+            health: "The value of health cannot be 0",
           });
         } else {
           setErrors({
@@ -163,17 +173,17 @@ const Form = () => {
         if (isNaN(attackValue)) {
           setErrors({
             ...errors,
-            attack: "Ingresa solo números enteros positivos",
+            attack: "Enter only positive integers",
           });
         } else if (attackValue > 200) {
           setErrors({
             ...errors,
-            attack: "El valor de attack no puede ser superior a 200",
+            attack: "The value of attack cannot be greater than 200",
           });
         } else if (attackValue === 0) {
           setErrors({
             ...errors,
-            attack: "El valor de attack no puede ser 0",
+            attack: "The value of attack cannot be 0",
           });
         } else {
           setErrors({
@@ -187,17 +197,17 @@ const Form = () => {
         if (isNaN(defenseValue)) {
           setErrors({
             ...errors,
-            defense: "Ingresa solo números enteros positivos",
+            defense: "Enter only positive integers",
           });
         } else if (defenseValue > 200) {
           setErrors({
             ...errors,
-            defense: "El valor de defense no puede ser superior a 200",
+            defense: "The value of defense cannot be greater than 200",
           });
         } else if (defenseValue === 0) {
           setErrors({
             ...errors,
-            defense: "El valor de defense no puede ser 0",
+            defense: "The value of defense cannot be 0",
           });
         } else {
           setErrors({
@@ -211,17 +221,17 @@ const Form = () => {
           if (isNaN(speedValue)) {
             setErrors({
               ...errors,
-              speed: "Ingresa solo números enteros positivos",
+              speed: "Enter only positive integers",
             });
           } else if (speedValue > 200) {
             setErrors({
               ...errors,
-              speed: "El valor de defense no puede ser superior a 200",
+              speed: "The value of speed cannot be greater than 200",
             });
           } else if (speedValue === 0) {
             setErrors({
               ...errors,
-              speed: "El valor de defense no puede ser 0",
+              speed: "The value of speed cannot be 0",
             });
           } else {
             setErrors({
@@ -235,17 +245,17 @@ const Form = () => {
           if (isNaN(heightValue)) {
             setErrors({
               ...errors,
-              height: "Ingresa solo números enteros positivos",
+              height: "Enter only positive integers",
             });
           } else if (heightValue > 200) {
             setErrors({
               ...errors,
-              height: "El valor de defense no puede ser superior a 200",
+              height: "The value of height cannot be greater than 200",
             });
           } else if (heightValue === 0) {
             setErrors({
               ...errors,
-              height: "El valor de defense no puede ser 0",
+              height: "The value of height cannot be 0",
             });
           } else {
             setErrors({
@@ -259,17 +269,17 @@ const Form = () => {
           if (isNaN(weightValue)) {
             setErrors({
               ...errors,
-              weight: "Ingresa solo números enteros positivos",
+              weight: "Enter only positive integers",
             });
           } else if (weightValue > 200) {
             setErrors({
               ...errors,
-              weight: "El valor de defense no puede ser superior a 200",
+              weight: "El valor de weight no puede ser superior a 200",
             });
           } else if (weightValue === 0) {
             setErrors({
               ...errors,
-              weight: "El valor de defense no puede ser 0",
+              weight: "The value of weight cannot be 0",
             });
           } else {
             setErrors({
@@ -285,7 +295,7 @@ const Form = () => {
 
   return (
     <div className={styles.bodyContainer}>
-      <button className={styles.buttonHome} onClick={handleButton}>GO TO HOME </button>
+      <Link className={styles.buttonHome} to = {"/home"}> HOME</Link>
       <div className={styles.container}>
       <div className={styles.card}>
       <h2>CREATE POKEMON</h2>
@@ -402,7 +412,7 @@ const Form = () => {
               name="height"
               value={value.height}
               onChange={handleChange}
-              required
+              
             />
           </label>
           <div className={styles.error}>
@@ -418,7 +428,7 @@ const Form = () => {
               name="weight"
               value={value.weight}
               onChange={handleChange}
-              required
+              
             />
           </label>
           <div className={styles.error}>
@@ -442,11 +452,15 @@ const Form = () => {
                   onClick={(e) => handleTypes(e, t)}
                   id={t.name + t.id}
                   key={t.name + t.id}
+                  required
                 >
                   {t.name} X
                 </button>
               ))
             : "ADD TYPES TO YOUR POKEMON"}
+            <div className={styles.error}>
+          {errors.types && <p>{errors.types}</p>}
+        </div >
         </div>
         <input className={styles.send} type="submit" />
       </form>

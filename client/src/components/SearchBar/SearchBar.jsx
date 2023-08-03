@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getPokemonByName } from '../../redux/actions';
+import { getPokemonByName, getPokemons } from '../../redux/actions';
 import styles from './SearchBar.module.css';
 
 
@@ -17,7 +17,7 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault(); //evitamos que el formulario se envíe automáticamente
     if (!name) {
-      alert('Please enter a Pokémon name.');
+      dispatch(getPokemons())
       return;
     }
     dispatch(getPokemonByName(name)); //usamos el hook useDispatch para despachar la acción getPokemonByName(name) a la tienda Redux. Esto enviará una solicitud para obtener información del Pokémon cuyo nombre fue ingresado.

@@ -12,7 +12,7 @@ export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN";
 export const getPokemons = () => {
   return function (dispatch) {
     axios
-      .get("http://localhost:3001/pokemons") //Hace una solicitud GET a la API
+      .get("http://localhost:3001/pokemons") //Hace una solicitud GET
       .then((response) => response.data) //Extrae la data
       .then((data) => dispatch({ type: GET_POKEMONS, payload: data }));
     // Dispatch la acción GET_POKEMONS desde la API

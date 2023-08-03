@@ -21,7 +21,7 @@ const Filter = () => {
 
   useEffect(() => {
     dispatch(getTypes());
-  }, [dispatch]);
+  }, []);
 
   function handleType(e) {
     setFilterType(e.target.value);

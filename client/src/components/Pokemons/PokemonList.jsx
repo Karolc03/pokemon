@@ -16,7 +16,7 @@ const PokemonList = () => {
     dispatch(getPokemons());
   }, [dispatch]);
 
-  useEffect(() => {
+  useEffect(() => {//se ejecutará cuando el valor de pokemons cambie.
     setMaximo(Math.ceil(pokemons.length / porPagina));
     setPagina(1);
   }, [pokemons]);
@@ -24,7 +24,7 @@ const PokemonList = () => {
   if (typeof pokemons === "string")
     return (
       <div className={styles.contenedor}>
-        <h1 className={styles}>NO HAY POKEMON CON ESE NOMBRE</h1>
+        <h1 className={styles}>NO MATCH FOUND</h1>
         <button
           className={styles.button}
           onClick={() => window.location.reload()}

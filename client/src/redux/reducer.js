@@ -27,6 +27,10 @@ const rootReducer = (state = initialState, action) => {
     //   pokemons: [...state.pokemons, action.payload],
     // }
     case GET_POKEMONS:
+      const pokemonsDB = Array.isArray(action.payload)
+        ? action.payload.filter((pokemon) => !Number.isInteger(pokemon.id - 1) //condición es que el id NO sea un número entero
+          )
+        : action.payload;
       return {
         ...state,
         pokemons: action.payload, // Actualiza la propiedad pokemons en el nuevo estado
@@ -35,13 +39,14 @@ const rootReducer = (state = initialState, action) => {
         pokemonApi: Array.isArray(action.payload)
           ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1)) //condición es que el id sea un número entero
           : action.payload, //sino, se asignará el mismo valor sin filtrar
-        pokemonDB: Array.isArray(action.payload)
-          ? action.payload.filter(
-              (pokemon) => !Number.isInteger(pokemon.id - 1) //condición es que el id NO sea un número entero
-            )
-          : action.payload,
+        pokemonDB: pokemonsDB.length ? pokemonsDB : "NO HAY POKEMON CON ESE NOMBRE"
       };
     case GET_POKEMON_BY_NAME:
+      const pokemonsDBByName = Array.isArray(action.payload)
+      ? action.payload.filter(
+          (pokemon) => !Number.isInteger(pokemon.id - 1) //condición es que el id NO sea un número entero
+        )
+      : action.payload;
       return {
         ...state,
         pokemons: action.payload,
@@ -50,11 +55,7 @@ const rootReducer = (state = initialState, action) => {
         pokemonApi: Array.isArray(action.payload)
           ? action.payload.filter((pokemon) => Number.isInteger(pokemon.id - 1))
           : action.payload,
-        pokemonDB: Array.isArray(action.payload)
-          ? action.payload.filter(
-              (pokemon) => !Number.isInteger(pokemon.id - 1)
-            )
-          : action.payload,
+        pokemonDB: pokemonsDBByName.length ? pokemonsDBByName : "NO HAY POKEMON CON ESE NOMBRE"
       };
     case GET_DETAILS:
       return {
@@ -102,10 +103,10 @@ const rootReducer = (state = initialState, action) => {
       if (action.payload === "All Types") {
         return {
           ...state,
-          pokemons: [...state.pokemonFilters],
+          pokemons: !Array.isArray(state.pokemonFilters) ? state.pokemonFilters : [...state.pokemonFilters],
         };
       } else {
-        const pkmns = [
+        const pkmns = Array.isArray(state.pokemonFilters) ? [
           ...state.pokemonFilters.filter((p) => {
             if (p.types.length) {
               if (typeof p.types[0] === "string")
@@ -114,7 +115,7 @@ const rootReducer = (state = initialState, action) => {
             }
             return false;
           }),
-        ];
+        ] : []
         return {
           ...state,
           pokemons: pkmns.length ? pkmns : "NO HAY POKEMON CON ESE NOMBRE",
@@ -131,8 +132,8 @@ const rootReducer = (state = initialState, action) => {
       } else if (action.payload === "pokemonDB") {
         return {
           ...state,
-          pokemons: [...state.pokemonDB],
-          pokemonFilters: [...state.pokemonDB],
+          pokemons: state.pokemonDB,
+          pokemonFilters: state.pokemonDB,
         };
       } else {
         return {
