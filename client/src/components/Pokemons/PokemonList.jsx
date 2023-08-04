@@ -59,6 +59,7 @@ const PokemonList = () => {
                   key={pokemon.name}
                   name={pokemon.name}
                   img={pokemon.img}
+                  attack={pokemon.attack}
                   types={pokemon.types}
                 />
               ))
